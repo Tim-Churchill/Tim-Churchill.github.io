@@ -18,6 +18,20 @@
         display: block;
         border-radius: 8px;
         overflow: hidden;
+        position: relative;
+      }
+
+      .viewer-status {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.7);
+        color: #1e252d;
+        font-size: 0.95rem;
+        text-align: center;
+        padding: 1rem;
       }
     </style>
   </head>
@@ -38,9 +52,11 @@
           <li class="active"><a href="robotic_hand_project.html">Robotic Hand</a></li>
           <li><a href="drone_control.html">Drone Control</a></li>
           <li><a href="books.html">Books</a></li>
+          <li><a href="blog.html">Blog</a></li>
         </ul>
         <ul class="icons">
-          <li><a href="https://github.com/Tim-Churchill?tab=repositories" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+          <li><a href="https://www.linkedin.com/in/timothy-churchill-5bb23b241" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+          <li><a href="https://github.com/Tim-Churchill" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
         </ul>
       </nav>
 
@@ -93,6 +109,15 @@
             This is the rolling contact joint used in Prototype Two. Rotate and inspect the geometry below.
           </p>
           <div id="hand-stl-viewer"></div>
+
+          <h2>Prototype Video</h2>
+          <p>
+            An early video of the robotic hand in motion.
+          </p>
+          <video controls playsinline style="width: min(400px, 100%); border-radius: 8px; display: block; margin: 0 auto;">
+            <source src="assets/videos/IMG_3761.MOV" type="video/quicktime" />
+            Your browser does not support the video tag.
+          </video>
 
           <h2>Status</h2>
           <p>
@@ -151,36 +176,73 @@
           60,
           handViewer.clientWidth / handViewer.clientHeight,
           0.1,
-          2000
+          5000
         );
-        camera.position.set(120, 120, 120);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setPixelRatio(window.devicePixelRatio || 1);
         renderer.setSize(handViewer.clientWidth, handViewer.clientHeight);
         handViewer.appendChild(renderer.domElement);
 
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
         scene.add(ambientLight);
 
         const directionalLight = new THREE.DirectionalLight(0xffffff, 0.9);
         directionalLight.position.set(1, 1, 1).normalize();
         scene.add(directionalLight);
 
-        const loader = new THREE.STLLoader();
-        loader.load('assets/models/rolling_contact_joint_hand_project.stl', function (geometry) {
-          const material = new THREE.MeshPhongMaterial({
-            color: 0x2a9d8f,
-            specular: 0x111111,
-            shininess: 120
-          });
-          const mesh = new THREE.Mesh(geometry, material);
-          mesh.rotation.x = -0.5 * Math.PI;
-          scene.add(mesh);
-        });
-
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
+
+        const status = document.createElement('div');
+        status.className = 'viewer-status';
+        status.textContent = 'Loading 3D model...';
+        handViewer.appendChild(status);
+
+        const modelUrl = 'assets/models/rolling_contact_joint_hand_project.stl';
+        const loader = new THREE.STLLoader();
+        fetch(modelUrl)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error('HTTP ' + response.status);
+            }
+            return response.arrayBuffer();
+          })
+          .then((data) => {
+            const geometry = loader.parse(data);
+            const material = new THREE.MeshPhongMaterial({
+              color: 0x2a9d8f,
+              specular: 0x111111,
+              shininess: 120
+            });
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.rotation.x = -0.5 * Math.PI;
+            scene.add(mesh);
+
+            const box = new THREE.Box3().setFromObject(mesh);
+            const size = box.getSize(new THREE.Vector3());
+            const center = box.getCenter(new THREE.Vector3());
+            mesh.position.sub(center);
+
+            const maxDim = Math.max(size.x, size.y, size.z);
+            const fov = camera.fov * (Math.PI / 180);
+            let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
+            cameraZ *= 1.6;
+            camera.position.set(cameraZ, cameraZ, cameraZ);
+            camera.near = Math.max(0.1, maxDim / 100);
+            camera.far = maxDim * 100;
+            camera.updateProjectionMatrix();
+
+            controls.target.set(0, 0, 0);
+            controls.update();
+            status.remove();
+          })
+          .catch((error) => {
+            status.textContent =
+              'Could not load 3D model. Check that ' + modelUrl + ' is available.';
+            console.error('STL load failed:', error);
+          });
 
         window.addEventListener('resize', () => {
           const width = handViewer.clientWidth;
