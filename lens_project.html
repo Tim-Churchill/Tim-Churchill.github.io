@@ -35,6 +35,27 @@
         margin: 1.5rem 0;
       }
 
+      .equation-block {
+        margin: 1.25rem 0 1.5rem;
+        padding: 0.75rem 1rem;
+        background: #f6f7f8;
+        border-radius: 8px;
+        font-size: 1.05rem;
+        letter-spacing: 0.01em;
+        text-align: center;
+      }
+
+      .equation-block .math {
+        font-style: italic;
+        font-weight: 600;
+      }
+
+      .math {
+        font-style: italic;
+        font-weight: 500;
+        letter-spacing: 0.01em;
+      }
+
       .viewer-status {
         position: absolute;
         inset: 0;
@@ -139,10 +160,16 @@
           <h2>The Physics (Briefly)</h2>
           <p>
             The magnetic force density acting on a paramagnetic liquid can be expressed (in simplified form) as being
-            proportional to: f is proportional to chi times grad of B squared, where chi is the magnetic susceptibility
-            of the liquid and B is the magnetic field strength. This magnetic force competes with surface tension,
-            gravity, and container geometry. The equilibrium surface shape -- and thus the optical behavior of the
-            lens -- emerges from the balance of these effects.
+            proportional to:
+          </p>
+          <div class="equation-block">
+            <span class="math">f</span> ∝ <span class="math">χ</span> ∇(<span class="math">B</span><sup>2</sup>)
+          </div>
+          <p>
+            where <span class="math">χ</span> is the magnetic susceptibility of the liquid and <span class="math">B</span>
+            is the magnetic field strength. This magnetic force competes with surface tension, gravity, and container
+            geometry. The equilibrium surface shape -- and thus the optical behavior of the lens -- emerges from the
+            balance of these effects.
           </p>
 
           <h2>Material Exploration: From Manganese to Gadolinium</h2>
