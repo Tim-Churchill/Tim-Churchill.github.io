@@ -5,192 +5,306 @@
   Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
+  <head>
+    <title>Paramagnetic Liquid Lens</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>
+      .lens-hero {
+        margin-bottom: 2rem;
+      }
 
-<head>
-  <title>Paramagnetic Liquid Lens</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-  <link rel="stylesheet" href="assets/css/main.css" />
-  <noscript>
-    <link rel="stylesheet" href="assets/css/noscript.css" />
-  </noscript>
+      #threejs-viewer {
+        width: 100%;
+        height: min(600px, 70vh);
+        display: block;
+        border-radius: 8px;
+        overflow: hidden;
+      }
 
-  <!-- Code for the interactive file viewer -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive 3D STL Viewer</title>
-  <style>
-    /* Removed overflow: hidden from body to allow scrolling */
-    body {
-      margin: 0;
-      /* overflow: hidden;  Removed this so the page can scroll */
-    }
+      .lens-section h2 {
+        margin-top: 2rem;
+      }
 
-    /* Adjusted viewer size to not take over full viewport */
-    #threejs-viewer {
-      width: 100%;
-      height: 600px; /* Fixed height for the 3D viewer */
-      display: block;
-      margin-bottom: 20px; /* Optional spacing from other elements */
-    }
-  </style>
-</head>
+      .lens-callout {
+        border-left: 4px solid #2a9d8f;
+        padding-left: 1.25rem;
+        margin: 1.5rem 0;
+      }
+    </style>
+  </head>
 
-<body class="is-preload">
+  <body class="is-preload">
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Header -->
+      <header id="header">
+        <a href="index.html" class="logo">Home</a>
+      </header>
 
-  <!-- Wrapper -->
-  <div id="wrapper">
+      <!-- Nav -->
+      <nav id="nav">
+        <ul class="links">
+          <li><a href="index.html">Home</a></li>
+          <li class="active"><a href="lens_project.html">Liquid Lens</a></li>
+          <li><a href="robotic_hand_project.html">Robotic Hand</a></li>
+          <li><a href="drone_control.html">Drone Control</a></li>
+          <li><a href="books.html">Books</a></li>
+        </ul>
+        <ul class="icons">
+          <li><a href="https://github.com/Tim-Churchill" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+        </ul>
+      </nav>
 
-    <!-- Header -->
-    <header id="header">
-      <a href="index.html" class="logo">Home</a>
-    </header>
+      <!-- Main -->
+      <div id="main">
+        <section class="post lens-section">
+          <header class="major">
+            <span class="date">April 25, 2017</span>
+            <h1>Paramagnetic Liquid Lens</h1>
+            <p>Shaping optics with magnetic fields to create continuously tunable focus.</p>
+          </header>
 
-    <!-- Nav -->
-    <nav id="nav">
-      <ul class="links">
-        <li><a href="index.html">Home</a></li>
-        <li class="active"><a href="lens_project.html">Liquid Lens</a></li>
-        <li><a href="robotic_hand_project.html">Robotic Hand</a></li>
-      </ul>
-      <ul class="icons">
-        <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-        <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-        <li><a href="https://github.com/Tim-Churchill" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
-      </ul>
-    </nav>
+          <div class="image main lens-hero">
+            <img src="assets/photos/lens_sketch.jpg" alt="Sketch of the paramagnetic liquid lens concept" />
+          </div>
 
-    <!-- Main -->
-    <div id="main">
+          <h2>A Paramagnetic Liquid Lens: Shaping Optics with Magnetic Fields</h2>
+          <p>
+            Most optical systems focus light by moving solid components. Glass lenses translate along rails, stacks
+            of elements are adjusted mechanically, and focus is achieved through precise but inherently rigid motion.
+            While effective, this approach brings unavoidable tradeoffs: inertia, wear, mechanical complexity, and
+            limits on speed and smoothness.
+          </p>
+          <p>
+            This project explores a different approach -- shaping light by shaping a liquid, using magnetic fields
+            instead of motors. Specifically, I am developing a paramagnetic liquid lens, where the curvature of a
+            liquid interface -- and therefore the focal length of the lens -- is dynamically controlled by externally
+            applied magnetic field gradients.
+          </p>
 
-      <!-- Post -->
-      <section class="post">
-        <header class="major">
-          <span class="date">April 25, 2017</span>
-          <h1>Paramagnetic<br />
-            Liquid Lens</h1>
-          <p>Testing and designing a paramagnetic liquid lens</p>
-        </header>
-        <div class="image main"><img src="images/pic01.jpg" alt="" /></div>
-        <p>Lets begin by explaining the purpose and potential for this project. Optics has become a incressingly critical field as we branch into fields that enable automated action basised on visual inputs. Though the field of perception has incressed by leaps in strides optical systems have not been keeping pace with the strides in optics. If you want long range focus you still need a large lens to keep pace. </p>
-        <p>We seek to solve these issues by creating a lens thats topology can be altered by acutuating with magentic fources. To start we originaly where posed to use electromagnetcis to create a fully solid state paramagnetic device, however we quickly moved away from this as electromagnets simpily cannot provide the Tesla fources that we need to affec</p>
-      </section>
+          <h2>The Core Idea</h2>
+          <p>
+            Paramagnetic liquids are weakly attracted to magnetic fields. Unlike ferromagnetic materials, they do
+            not retain magnetization once the field is removed, making them stable, reversible, and well-suited for
+            controlled actuation.
+          </p>
+          <p>
+            When a paramagnetic liquid is placed in a container and exposed to a non-uniform magnetic field, it
+            experiences a body force proportional to the gradient of the magnetic field strength. This force
+            redistributes the liquid, deforming its free surface. Because optical refraction depends on surface
+            curvature, reshaping the liquid surface reshapes the lens.
+          </p>
 
-      <!-- STL File Viewer Section -->
-      <section>
-        <h2>3D STL Viewer</h2>
-        <div id="threejs-viewer"></div>
-      </section>
+          <div class="lens-callout">
+            <p>
+              Magnetic field to liquid surface deformation to variable focal length. No moving solid optics are required.
+            </p>
+          </div>
 
-    </div>
-    
-    <!-- Footer -->
-    <footer id="footer">
-      <section class="split contact">
-        <section>
-          <h3>Phone</h3>
-          <p><a href="#">(720) 695-6983</a></p>
-        </section>
-        <section>
-          <h3>Email</h3>
-          <p><a href="#">timothy.churchillr@gmail.com</a></p>
-        </section>
-        <section>
-          <h3>Social</h3>
-          <ul class="icons alt">
-            <li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
-            <li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
-            <li><a href="https://github.com/Tim-Churchill" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+          <h2>Why a Liquid Lens?</h2>
+          <p>
+            Liquid lenses are not new -- electrowetting lenses are already used in compact cameras and medical devices.
+            However, magnetic actuation offers several distinct advantages:
+          </p>
+          <ul>
+            <li>Contactless control: No electrodes or mechanical actuators interact directly with the optical surface.</li>
+            <li>Smooth, continuous deformation: Lens curvature changes continuously rather than in discrete steps.</li>
+            <li>Fast response: The dominant limits are fluid dynamics rather than motor inertia.</li>
+            <li>Scalability: The same principle applies from millimeter-scale optics to much larger apertures.</li>
           </ul>
-        </section>
-      </section>
-    </footer>
+          <p>
+            Paramagnetic liquids, in particular, offer a compelling balance: strong enough magnetic response to be
+            useful, without the instability, hysteresis, or optical opacity associated with ferrofluids.
+          </p>
 
-    <!-- Copyright -->
-    <div id="copyright">
-      <ul>
-        <li>&copy; Untitled</li>
-        <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
-      </ul>
+          <h2>The Physics (Briefly)</h2>
+          <p>
+            The magnetic force density acting on a paramagnetic liquid can be expressed (in simplified form) as being
+            proportional to: f is proportional to chi times grad of B squared, where chi is the magnetic susceptibility
+            of the liquid and B is the magnetic field strength. This magnetic force competes with surface tension,
+            gravity, and container geometry. The equilibrium surface shape -- and thus the optical behavior of the
+            lens -- emerges from the balance of these effects.
+          </p>
+
+          <h2>Material Exploration: From Manganese to Gadolinium</h2>
+          <h3>Initial Experiments: Manganese Chloride</h3>
+          <p>
+            The project began with aqueous manganese chloride (MnCl2) solutions. Manganese(II) ions are paramagnetic,
+            inexpensive, and easy to work with, making MnCl2 a natural starting point for early experimentation.
+            These solutions were used to validate the basic concept: that magnetic field gradients could produce
+            measurable and repeatable surface deformation.
+          </p>
+          <p>
+            Using manganese chloride allowed for rapid iteration on chamber geometry, magnetic field placement, and
+            stability limits imposed by surface tension and gravity. However, these experiments also revealed
+            limitations: the magnetic susceptibility of Mn2+ is relatively weak, significant deformation required
+            stronger fields or higher concentrations, and optical clarity degraded before large curvature changes
+            could be achieved.
+          </p>
+
+          <h3>Final Working Fluid: Gadolinium Nitrate</h3>
+          <p>
+            The final working fluid for this project is aqueous gadolinium nitrate. Gadolinium(III) has one of the
+            strongest paramagnetic responses of any stable ion, making it especially well-suited for magnetic
+            actuation at practical field strengths. Switching to gadolinium nitrate dramatically increased the
+            system's responsiveness to magnetic field gradients.
+          </p>
+          <p>
+            Compared to manganese chloride, gadolinium nitrate enabled greater surface deformation at lower field
+            strengths, improved tuning resolution, and cleaner separation between magnetic control and optical
+            quality. This shift allowed the lens behavior to be governed primarily by magnetic forces rather than by
+            pushing concentration or field strength to extremes.
+          </p>
+
+          <h2>Why Not Ferrofluids?</h2>
+          <p>
+            Ferrofluids were deliberately avoided. Although they respond strongly to magnetic fields, ferrofluids
+            introduce significant light scattering and opacity, particle aggregation and surface instabilities, and
+            hysteresis due to remanent magnetization. Paramagnetic salt solutions, by contrast, offer smooth,
+            reversible, and predictable deformation, which is essential for controlled optical systems.
+          </p>
+
+          <h2>System Behavior and Control</h2>
+          <p>
+            In operation, the system behaves as a continuous analog actuator. Increasing the magnetic field gradient
+            increases surface curvature, changing field geometry reshapes the lens profile, and removing the field
+            allows the surface to relax back toward equilibrium. There is no discrete \"focus position\" -- the lens
+            transitions smoothly across focal lengths.
+          </p>
+
+          <h2>Challenges and Ongoing Work</h2>
+          <p>
+            While the core concept is simple, the system involves several tightly coupled physical effects: nonlinear
+            fluid dynamics, magnetic field geometry, surface stability and damping, and optical aberrations introduced
+            by non-ideal curvature. Current and future work focuses on modeling the liquid-field interaction
+            computationally, identifying stable operating regimes, quantifying optical performance under dynamic
+            actuation, and exploring closed-loop optical control.
+          </p>
+
+          <h2>Why This Matters</h2>
+          <p>
+            A magnetically controlled liquid lens offers a fundamentally different way to think about optics: no
+            moving solids, continuous smooth control, compact and mechanically simple systems. Potential applications
+            include adaptive optics, microscopy, robotics, and sensing systems where robustness and tunability matter
+            more than absolute optical perfection.
+          </p>
+
+          <h2>Closing Thoughts</h2>
+          <p>
+            This project is ultimately about rethinking a basic assumption in optics: that lenses must be rigid
+            objects. By treating the lens as a dynamic physical system shaped by fields rather than by mechanisms, we
+            gain new degrees of freedom -- along with new challenges that are worth solving.
+          </p>
+        </section>
+
+        <section class="post">
+          <header class="major">
+            <h2>3D Model Viewer</h2>
+            <p>Interactive STL viewer for the lens assembly.</p>
+          </header>
+          <div id="threejs-viewer"></div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <section class="split contact">
+          <section>
+            <h3>Phone</h3>
+            <p><a href="#">(720) 695-6983</a></p>
+          </section>
+          <section>
+            <h3>Email</h3>
+            <p><a href="#">timothy.churchillr@gmail.com</a></p>
+          </section>
+          <section>
+            <h3>Social</h3>
+            <ul class="icons alt">
+              <li><a href="https://github.com/Tim-Churchill" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+            </ul>
+          </section>
+        </section>
+      </footer>
+
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>&copy; Untitled</li>
+          <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+        </ul>
+      </div>
     </div>
 
-  </div>
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
 
-  <!-- Scripts for the page content -->
-  <script src="assets/js/jquery.min.js"></script>
-  <script src="assets/js/jquery.scrollex.min.js"></script>
-  <script src="assets/js/jquery.scrolly.min.js"></script>
-  <script src="assets/js/browser.min.js"></script>
-  <script src="assets/js/breakpoints.min.js"></script>
-  <script src="assets/js/util.js"></script>
-  <script src="assets/js/main.js"></script>
-
-  <!-- Include Three.js, STL Loader, and OrbitControls -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/STLLoader.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
-
-  <script>
-    // Set up the scene, camera, and renderer
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xf0f0f0);
-
-    const camera = new THREE.PerspectiveCamera(
-      75,
-      document.getElementById('threejs-viewer').clientWidth / document.getElementById('threejs-viewer').clientHeight,
-      0.1,
-      1000
-    );
-    camera.position.set(100, 100, 100);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(document.getElementById('threejs-viewer').clientWidth, document.getElementById('threejs-viewer').clientHeight);
-    document.getElementById('threejs-viewer').appendChild(renderer.domElement);
-
-    // Add lighting to the scene
-    const ambientLight = new THREE.AmbientLight(0x404040);
-    scene.add(ambientLight);
-
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(0, 1, 1).normalize();
-    scene.add(directionalLight);
-
-    // Load the STL file using STLLoader from the 3dfiles folder
-    const loader = new THREE.STLLoader();
-    loader.load('3dfiles/model.stl', function (geometry) {
-      const material = new THREE.MeshPhongMaterial({
-        color: 0x0077be,
-        specular: 0x111111,
-        shininess: 200
-      });
-      const mesh = new THREE.Mesh(geometry, material);
-      // Adjust orientation as needed
-      mesh.rotation.x = -0.5 * Math.PI;
-      scene.add(mesh);
-    });
-
-    // Add OrbitControls to allow interactive rotation, panning, and zooming
-    const controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true; // for smoother experience
-    controls.dampingFactor = 0.05;
-
-    // Responsive resizing for the viewer section
-    window.addEventListener('resize', () => {
+    <!-- Three.js viewer -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/STLLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+    <script>
       const viewer = document.getElementById('threejs-viewer');
-      camera.aspect = viewer.clientWidth / viewer.clientHeight;
-      camera.updateProjectionMatrix();
+      const scene = new THREE.Scene();
+      scene.background = new THREE.Color(0xf0f0f0);
+
+      const camera = new THREE.PerspectiveCamera(
+        60,
+        viewer.clientWidth / viewer.clientHeight,
+        0.1,
+        2000
+      );
+      camera.position.set(120, 120, 120);
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setSize(viewer.clientWidth, viewer.clientHeight);
-    });
+      viewer.appendChild(renderer.domElement);
 
-    // Animation loop to render the scene continuously
-    function animate() {
-      requestAnimationFrame(animate);
-      controls.update(); // update controls for damping
-      renderer.render(scene, camera);
-    }
-    animate();
-  </script>
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+      scene.add(ambientLight);
 
-</body>
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.9);
+      directionalLight.position.set(1, 1, 1).normalize();
+      scene.add(directionalLight);
 
+      const loader = new THREE.STLLoader();
+      loader.load('assets/models/model.stl', function (geometry) {
+        const material = new THREE.MeshPhongMaterial({
+          color: 0x0077be,
+          specular: 0x111111,
+          shininess: 200
+        });
+        const mesh = new THREE.Mesh(geometry, material);
+        mesh.rotation.x = -0.5 * Math.PI;
+        scene.add(mesh);
+      });
+
+      const controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+
+      window.addEventListener('resize', () => {
+        const width = viewer.clientWidth;
+        const height = viewer.clientHeight;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      }
+      animate();
+    </script>
+  </body>
 </html>
