@@ -16,15 +16,6 @@
         margin-bottom: 2rem;
       }
 
-      #threejs-viewer {
-        width: 100%;
-        height: min(600px, 70vh);
-        display: block;
-        border-radius: 8px;
-        overflow: hidden;
-        position: relative;
-      }
-
       .lens-section h2 {
         margin-top: 2rem;
       }
@@ -54,19 +45,6 @@
         font-style: italic;
         font-weight: 500;
         letter-spacing: 0.01em;
-      }
-
-      .viewer-status {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.7);
-        color: #1e252d;
-        font-size: 0.95rem;
-        text-align: center;
-        padding: 1rem;
       }
     </style>
   </head>
@@ -170,6 +148,43 @@
             balance of these effects.
           </p>
 
+          <h2>Back-of-Envelope Magnetic Force</h2>
+          <p>
+            Assume the liquid sits in a spherical volume and four identical magnetic points are equally spaced around
+            it. The net force comes from the gradient of the field energy, and the contributions from each point add.
+          </p>
+          <div class="equation-block">
+            <div>F = (chi · V / (2 · mu0)) · grad(B^2)</div>
+            <div>grad(B^2) = sum_i grad(B_i^2)</div>
+          </div>
+          <p>
+            If you want the field to provide a target force (for example, a fraction of the sphere's weight), the
+            required field gradient is:
+          </p>
+          <div class="equation-block">
+            <div>grad(B^2) = 2 · mu0 · F / (chi · V)</div>
+            <div>F_target = alpha · rho · g · (4/3) · pi · R^3</div>
+          </div>
+          <p>
+            For equal concentration and temperature, paramagnetic susceptibility scales with the square of the
+            effective magnetic moment. Using spin-only moments:
+          </p>
+          <div class="equation-block">
+            <div>mu_eff(Gd3+) ≈ 7.94 muB</div>
+            <div>mu_eff(Mn2+) ≈ 5.92 muB</div>
+            <div>chi_Gd / chi_Mn ≈ (7.94 / 5.92)^2 ≈ 1.80</div>
+          </div>
+          <p>
+            This means, for the same geometry and target force, a gadolinium nitrate solution would need roughly
+            0.56× the field gradient required by a manganese chloride solution. The animation below visualizes the
+            setup and the scaling.
+          </p>
+
+          <video controls playsinline style="width: min(720px, 100%); border-radius: 10px; display: block; margin: 0 auto 2rem;">
+            <source src="assets/videos/liquid_lens_magnet_math.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+
           <h2>Material Exploration: From Manganese to Gadolinium</h2>
           <h3>Initial Experiments: Manganese Chloride</h3>
           <p>
@@ -241,13 +256,6 @@
           </p>
         </section>
 
-        <section class="post">
-          <header class="major">
-            <h2>3D Model Viewer</h2>
-            <p>Interactive STL viewer for the lens assembly.</p>
-          </header>
-          <div id="threejs-viewer"></div>
-        </section>
       </div>
 
       <!-- Footer -->
@@ -287,104 +295,5 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
-
-    <!-- Three.js viewer -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/STLLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
-    <script>
-      const viewer = document.getElementById('threejs-viewer');
-      if (viewer) {
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xf0f0f0);
-
-        const camera = new THREE.PerspectiveCamera(
-          60,
-          viewer.clientWidth / viewer.clientHeight,
-          0.1,
-          5000
-        );
-
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setPixelRatio(window.devicePixelRatio || 1);
-        renderer.setSize(viewer.clientWidth, viewer.clientHeight);
-        viewer.appendChild(renderer.domElement);
-
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-        scene.add(ambientLight);
-
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.9);
-        directionalLight.position.set(1, 1, 1).normalize();
-        scene.add(directionalLight);
-
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
-
-        const status = document.createElement('div');
-        status.className = 'viewer-status';
-        status.textContent = 'Loading 3D model...';
-        viewer.appendChild(status);
-
-        const modelUrl = 'assets/models/model.stl';
-        const loader = new THREE.STLLoader();
-        fetch(modelUrl)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error('HTTP ' + response.status);
-            }
-            return response.arrayBuffer();
-          })
-          .then((data) => {
-            const geometry = loader.parse(data);
-            const material = new THREE.MeshPhongMaterial({
-              color: 0x0077be,
-              specular: 0x111111,
-              shininess: 200
-            });
-            const mesh = new THREE.Mesh(geometry, material);
-            mesh.rotation.x = -0.5 * Math.PI;
-            scene.add(mesh);
-
-            const box = new THREE.Box3().setFromObject(mesh);
-            const size = box.getSize(new THREE.Vector3());
-            const center = box.getCenter(new THREE.Vector3());
-            mesh.position.sub(center);
-
-            const maxDim = Math.max(size.x, size.y, size.z);
-            const fov = camera.fov * (Math.PI / 180);
-            let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-            cameraZ *= 1.6;
-            camera.position.set(cameraZ, cameraZ, cameraZ);
-            camera.near = Math.max(0.1, maxDim / 100);
-            camera.far = maxDim * 100;
-            camera.updateProjectionMatrix();
-
-            controls.target.set(0, 0, 0);
-            controls.update();
-            status.remove();
-          })
-          .catch((error) => {
-            status.textContent =
-              'Could not load 3D model. Check that ' + modelUrl + ' is available.';
-            console.error('STL load failed:', error);
-          });
-
-        window.addEventListener('resize', () => {
-          const width = viewer.clientWidth;
-          const height = viewer.clientHeight;
-          camera.aspect = width / height;
-          camera.updateProjectionMatrix();
-          renderer.setSize(width, height);
-        });
-
-        function animate() {
-          requestAnimationFrame(animate);
-          controls.update();
-          renderer.render(scene, camera);
-        }
-        animate();
-      }
-    </script>
   </body>
 </html>

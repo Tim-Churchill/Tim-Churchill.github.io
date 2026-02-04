@@ -1,0 +1,13 @@
+# This file is used internally by FFMPEG.
+file 'file:/Users/timothychurchill/Documents/Personal/PersonalWebsite/Tim-Churchill.github.io/media/videos/liquid_lens_magnet_math/720p30/partial_movie_files/LiquidLensMagnetMath/2229953274_3308762249_223132457.mp4'
+file 'file:/Users/timothychurchill/Documents/Personal/PersonalWebsite/Tim-Churchill.github.io/media/videos/liquid_lens_magnet_math/720p30/partial_movie_files/LiquidLensMagnetMath/1531263816_70484149_3238683712.mp4'
+file 'file:/Users/timothychurchill/Documents/Personal/PersonalWebsite/Tim-Churchill.github.io/media/videos/liquid_lens_magnet_math/720p30/partial_movie_files/LiquidLensMagnetMath/1531263816_900691119_1930672932.mp4'
+file 'file:/Users/timothychurchill/Documents/Personal/PersonalWebsite/Tim-Churchill.github.io/media/videos/liquid_lens_magnet_math/720p30/partial_movie_files/LiquidLensMagnetMath/1531263816_15476860_1280913766.mp4'
+file 'file:/Users/timothychurchill/Documents/Personal/PersonalWebsite/Tim-Churchill.github.io/media/videos/liquid_lens_magnet_math/720p30/partial_movie_files/LiquidLensMagnetMath/1531263816_3866006407_981966757.mp4'
+file 'file:/Users/timothychurchill/Documents/Personal/PersonalWebsite/Tim-Churchill.github.io/media/videos/liquid_lens_magnet_math/720p30/partial_movie_files/LiquidLensMagnetMath/1531263816_2574473371_1032662045.mp4'
+file 'file:/Users/timothychurchill/Documents/Personal/PersonalWebsite/Tim-Churchill.github.io/media/videos/liquid_lens_magnet_math/720p30/partial_movie_files/LiquidLensMagnetMath/1531263816_3808975841_1415058153.mp4'
+file 'file:/Users/timothychurchill/Documents/Personal/PersonalWebsite/Tim-Churchill.github.io/media/videos/liquid_lens_magnet_math/720p30/partial_movie_files/LiquidLensMagnetMath/1531263816_2019105963_1210443989.mp4'
+file 'file:/Users/timothychurchill/Documents/Personal/PersonalWebsite/Tim-Churchill.github.io/media/videos/liquid_lens_magnet_math/720p30/partial_movie_files/LiquidLensMagnetMath/1531263816_3915893059_3962601595.mp4'
+file 'file:/Users/timothychurchill/Documents/Personal/PersonalWebsite/Tim-Churchill.github.io/media/videos/liquid_lens_magnet_math/720p30/partial_movie_files/LiquidLensMagnetMath/1531263816_2685421711_3031773856.mp4'
+file 'file:/Users/timothychurchill/Documents/Personal/PersonalWebsite/Tim-Churchill.github.io/media/videos/liquid_lens_magnet_math/720p30/partial_movie_files/LiquidLensMagnetMath/1531263816_2285617257_3822404893.mp4'
+file 'file:/Users/timothychurchill/Documents/Personal/PersonalWebsite/Tim-Churchill.github.io/media/videos/liquid_lens_magnet_math/720p30/partial_movie_files/LiquidLensMagnetMath/1531263816_310540274_2382733462.mp4'
