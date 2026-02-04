@@ -11,29 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-    <style>
-      #hand-stl-viewer {
-        width: 100%;
-        height: min(560px, 70vh);
-        display: block;
-        border-radius: 8px;
-        overflow: hidden;
-        position: relative;
-      }
-
-      .viewer-status {
-        position: absolute;
-        inset: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.7);
-        color: #1e252d;
-        font-size: 0.95rem;
-        text-align: center;
-        padding: 1rem;
-      }
-    </style>
   </head>
 
   <body class="is-preload">
@@ -51,8 +28,6 @@
           <li><a href="lens_project.html">Liquid Lens</a></li>
           <li class="active"><a href="robotic_hand_project.html">Robotic Hand</a></li>
           <li><a href="drone_control.html">Drone Control</a></li>
-          <li><a href="books.html">Books</a></li>
-          <li><a href="blog.html">Blog</a></li>
         </ul>
         <ul class="icons">
           <li><a href="https://www.linkedin.com/in/timothy-churchill-5bb23b241" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
@@ -68,7 +43,7 @@
             <h1>Robotic Hand</h1>
             <p>Design and control of an inexpensive, 3D printed robotic hand and arm.</p>
           </header>
-          <div class="image main"><img src="assets/photos/pic03.jpg" alt="Robotic hand prototype" /></div>
+          <div class="image main"><img src="assets/photos/rolling_contact_joing_prototype_complete.png" alt="Rolling contact joint prototype" /></div>
 
           <h2>Goals</h2>
           <p>
@@ -85,6 +60,7 @@
                 The first prototype established key baselines, including the relative success of servo-driven tendon
                 routing and how well inexpensive parts could hold alignment under load.
               </p>
+              <div class="image fit"><img src="assets/photos/prototype1.png" alt="Prototype one assembled hand" /></div>
             </dd>
             <dt>Prototype Two</dt>
             <dd>
@@ -93,6 +69,7 @@
                 0.2 mm fishing line as the contact surface instead of bulky axles. This reduced friction and simplified
                 the assembly.
               </p>
+              <div class="image fit"><img src="assets/photos/prototype2.png" alt="Prototype two rolling contact joints" /></div>
             </dd>
             <dt>Prototype Three</dt>
             <dd>
@@ -101,14 +78,58 @@
                 skeleton and connected each segment to mimic biological joints. This created a more realistic imitation
                 of the forces involved, with the goal of inheriting the advantages built into human anatomy.
               </p>
+              <div class="image fit"><img src="assets/photos/rolling_contact_joing_prototupe3.png" alt="Prototype three skeletal scan geometry" /></div>
             </dd>
           </dl>
 
-          <h2>Rolling Contact Joint - Interactive Model</h2>
+          <h2>Design Themes</h2>
+
+          <h3>Rolling-Contact / Non-Traditional Finger Joints</h3>
           <p>
-            This is the rolling contact joint used in Prototype Two. Rotate and inspect the geometry below.
+            I moved beyond simple pin joints to achieve smoother, more human-like motion and force transmission. The
+            rolling-contact joints explored here draw from biological joints and precision mechanisms, emphasizing
+            cam surfaces, rolling interfaces, and constrained motion over software compensation.
           </p>
-          <div id="hand-stl-viewer"></div>
+          <ul>
+            <li>Reduced backlash and wear versus revolute joints.</li>
+            <li>Smoother torque transfer and more natural finger trajectories.</li>
+            <li>Mechanical intelligence before software intelligence.</li>
+          </ul>
+          <div class="image fit"><img src="assets/photos/rolling_contact_joing_prototupe_wireframe.png" alt="Rolling contact joint wireframe" /></div>
+
+          <h3>Tendon-Driven Finger Actuation Concepts</h3>
+          <p>
+            I investigated tendon / cable-driven fingers to move motors closer to the palm or forearm, lowering distal
+            mass and increasing dexterity. This work focused on biomechanics-inspired routing and control coupling,
+            rather than a servo-per-joint approach.
+          </p>
+          <ul>
+            <li>Elasticity, hysteresis, and tension management in tendon routing.</li>
+            <li>Tension control versus position control for stable grasping.</li>
+            <li>Tradeoffs between underactuated and fully actuated fingers.</li>
+          </ul>
+
+          <h3>Force, Compliance, and Tactile Interaction</h3>
+          <p>
+            The goal was not just motion, but safe and expressive interaction. I prioritized compliance both in
+            materials and in control to avoid brittle, rigid grasps.
+          </p>
+          <ul>
+            <li>Passive compliance through joint design and material selection.</li>
+            <li>Active compliance through impedance and admittance control.</li>
+            <li>Hands are for interaction, not just positioning.</li>
+          </ul>
+
+          <h3>Manufacturing-Constrained Design (Real-World Buildability)</h3>
+          <p>
+            Every design decision was filtered through buildability. The project emphasized simple assemblies and
+            serviceable parts that can be printed, tuned, and repaired without custom machining.
+          </p>
+          <ul>
+            <li>3D-printable joint geometries with realistic tolerances.</li>
+            <li>Off-the-shelf bearings, tendons, and fasteners.</li>
+            <li>Elegance includes manufacturability.</li>
+          </ul>
 
           <h2>Prototype Video</h2>
           <p>
@@ -163,102 +184,5 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/loaders/STLLoader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
-    <script>
-      const handViewer = document.getElementById('hand-stl-viewer');
-      if (handViewer) {
-        const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xf0f0f0);
-
-        const camera = new THREE.PerspectiveCamera(
-          60,
-          handViewer.clientWidth / handViewer.clientHeight,
-          0.1,
-          5000
-        );
-
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setPixelRatio(window.devicePixelRatio || 1);
-        renderer.setSize(handViewer.clientWidth, handViewer.clientHeight);
-        handViewer.appendChild(renderer.domElement);
-
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-        scene.add(ambientLight);
-
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.9);
-        directionalLight.position.set(1, 1, 1).normalize();
-        scene.add(directionalLight);
-
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        controls.enableDamping = true;
-        controls.dampingFactor = 0.05;
-
-        const status = document.createElement('div');
-        status.className = 'viewer-status';
-        status.textContent = 'Loading 3D model...';
-        handViewer.appendChild(status);
-
-        const modelUrl = 'assets/models/rolling_contact_joint_hand_project.stl';
-        const loader = new THREE.STLLoader();
-        fetch(modelUrl)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error('HTTP ' + response.status);
-            }
-            return response.arrayBuffer();
-          })
-          .then((data) => {
-            const geometry = loader.parse(data);
-            const material = new THREE.MeshPhongMaterial({
-              color: 0x2a9d8f,
-              specular: 0x111111,
-              shininess: 120
-            });
-            const mesh = new THREE.Mesh(geometry, material);
-            mesh.rotation.x = -0.5 * Math.PI;
-            scene.add(mesh);
-
-            const box = new THREE.Box3().setFromObject(mesh);
-            const size = box.getSize(new THREE.Vector3());
-            const center = box.getCenter(new THREE.Vector3());
-            mesh.position.sub(center);
-
-            const maxDim = Math.max(size.x, size.y, size.z);
-            const fov = camera.fov * (Math.PI / 180);
-            let cameraZ = Math.abs(maxDim / 2 / Math.tan(fov / 2));
-            cameraZ *= 1.6;
-            camera.position.set(cameraZ, cameraZ, cameraZ);
-            camera.near = Math.max(0.1, maxDim / 100);
-            camera.far = maxDim * 100;
-            camera.updateProjectionMatrix();
-
-            controls.target.set(0, 0, 0);
-            controls.update();
-            status.remove();
-          })
-          .catch((error) => {
-            status.textContent =
-              'Could not load 3D model. Check that ' + modelUrl + ' is available.';
-            console.error('STL load failed:', error);
-          });
-
-        window.addEventListener('resize', () => {
-          const width = handViewer.clientWidth;
-          const height = handViewer.clientHeight;
-          camera.aspect = width / height;
-          camera.updateProjectionMatrix();
-          renderer.setSize(width, height);
-        });
-
-        function animate() {
-          requestAnimationFrame(animate);
-          controls.update();
-          renderer.render(scene, camera);
-        }
-        animate();
-      }
-    </script>
   </body>
 </html>
