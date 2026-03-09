@@ -1,0 +1,563 @@
+<!DOCTYPE HTML>
+<!--
+  Massively by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>The Knowledge Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>
+      .knowledge-map-page {
+        padding-bottom: 1rem;
+      }
+
+      .km-hero {
+        background: linear-gradient(135deg, #f7fbfd 0%, #edf6fb 45%, #f5f9fc 100%);
+        border: 1px solid rgba(33, 41, 49, 0.12);
+        border-radius: 14px;
+        padding: 2.5rem 2.25rem;
+        margin-bottom: 2rem;
+      }
+
+      .km-eyebrow {
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #5b6770;
+        margin-bottom: 0.8rem;
+      }
+
+      .km-hero h2 {
+        margin-bottom: 0.9rem;
+      }
+
+      .km-hero .km-lead {
+        font-size: 1.08rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .km-hero-points {
+        margin-bottom: 0;
+      }
+
+      .km-grid-two {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        margin: 1rem 0 2rem;
+      }
+
+      .km-card {
+        border: 1px solid rgba(33, 41, 49, 0.12);
+        border-radius: 12px;
+        padding: 1.2rem;
+        background: #ffffff;
+      }
+
+      .km-card h3 {
+        margin-bottom: 0.55rem;
+      }
+
+      .km-chain {
+        font-size: 0.95rem;
+        font-weight: 600;
+        line-height: 1.8;
+        color: #2a3640;
+      }
+
+      .km-chain span {
+        color: #18bfef;
+      }
+
+      .km-screenshot-frame {
+        border: 2px dashed rgba(24, 191, 239, 0.52);
+        border-radius: 12px;
+        padding: 1.3rem;
+        background: #f8fcff;
+        margin: 1.25rem 0 2rem;
+      }
+
+      .km-screenshot-frame h3 {
+        margin-bottom: 0.35rem;
+      }
+
+      .km-shot-label {
+        display: inline-block;
+        background: #212931;
+        color: #ffffff;
+        padding: 0.25rem 0.55rem;
+        border-radius: 999px;
+        font-size: 0.68rem;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+        margin-bottom: 0.55rem;
+      }
+
+      .km-shot-notes {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+
+      .km-screenshot-frame .image {
+        margin: 0.9rem 0 0.85rem;
+      }
+
+      .km-screenshot-frame img {
+        border-radius: 8px;
+        border: 1px solid rgba(33, 41, 49, 0.15);
+      }
+
+      .km-shot-compare {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.85rem;
+        margin: 0.9rem 0 0.8rem;
+      }
+
+      .km-shot-panel {
+        border: 1px solid rgba(33, 41, 49, 0.12);
+        border-radius: 10px;
+        background: #ffffff;
+        padding: 0.8rem;
+      }
+
+      .km-shot-panel h4 {
+        margin: 0 0 0.35rem;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .km-process {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.8rem;
+        margin: 1rem 0 1.2rem;
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .km-process li {
+        border: 1px solid rgba(33, 41, 49, 0.14);
+        border-radius: 10px;
+        padding: 1rem;
+        background: #ffffff;
+      }
+
+      .km-process li h3 {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .km-process li p {
+        font-size: 0.86rem;
+        line-height: 1.5;
+        margin: 0;
+      }
+
+      .km-mastery-flow {
+        border-left: 4px solid #18bfef;
+        padding: 1rem 1.1rem;
+        background: #f7fcff;
+        border-radius: 0 10px 10px 0;
+        margin: 1.2rem 0 2rem;
+      }
+
+      .km-mastery-flow code {
+        font-size: 0.88rem;
+        line-height: 1.8;
+        display: block;
+        white-space: pre-line;
+        color: #1d2b36;
+      }
+
+      .km-architecture-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        margin: 1rem 0 1.3rem;
+      }
+
+      .km-architecture-card {
+        border: 1px solid rgba(33, 41, 49, 0.12);
+        border-radius: 12px;
+        padding: 1rem 1.1rem;
+        background: #ffffff;
+      }
+
+      .km-architecture-card h3 {
+        margin-bottom: 0.4rem;
+      }
+
+      .km-diff-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        margin: 1rem 0 2rem;
+      }
+
+      .km-diff-item {
+        border: 1px solid rgba(33, 41, 49, 0.12);
+        border-radius: 10px;
+        padding: 1rem;
+        background: #ffffff;
+      }
+
+      .km-diff-item h3 {
+        font-size: 0.95rem;
+        margin-bottom: 0.35rem;
+      }
+
+      @media screen and (max-width: 980px) {
+        .km-grid-two,
+        .km-shot-compare,
+        .km-process,
+        .km-architecture-grid,
+        .km-diff-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .km-hero {
+          padding: 1.7rem 1.3rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="is-preload">
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Header -->
+      <header id="header">
+        <a href="index.html" class="logo">Home</a>
+      </header>
+
+      <!-- Nav -->
+      <nav id="nav">
+        <ul class="links">
+          <li><a href="index.html">Home</a></li>
+          <li class="active"><a href="knowledge_map.html">Knowledge Map</a></li>
+          <li><a href="lens_project.html">Liquid Lens</a></li>
+          <li><a href="robotic_hand_project.html">Robotic Hand</a></li>
+          <li><a href="drone_control.html">Drone Control</a></li>
+        </ul>
+        <ul class="icons">
+          <li><a href="https://www.linkedin.com/in/timothy-churchill-5bb23b241" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+          <li><a href="https://github.com/Tim-Churchill" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+        </ul>
+      </nav>
+
+      <!-- Main -->
+      <div id="main">
+        <section class="post knowledge-map-page">
+          <header class="major">
+            <span class="date">Project Concept - March 2026</span>
+            <h1>The Knowledge Map</h1>
+            <p>A living map of understanding, built from real learning activity.</p>
+          </header>
+
+          <section class="km-hero">
+            <p class="km-eyebrow">Section 1 - Big Idea</p>
+            <h2>Learning should look like growth through structure, not a pile of disconnected artifacts.</h2>
+            <p class="km-lead">
+              Transcripts, note dumps, and completed tasks all miss the same thing: conceptual topology. The Knowledge
+              Map treats understanding as a graph of ideas that expands as someone learns. Progress is visible,
+              cumulative, and anchored to actual work.
+            </p>
+            <ul class="km-hero-points">
+              <li>Knowledge is represented as structure, not fragments.</li>
+              <li>Mastery is gradual and measurable, not binary.</li>
+              <li>The profile becomes a living map of what a person can actually reason about.</li>
+            </ul>
+          </section>
+
+          <figure class="km-screenshot-frame" id="screenshot-map-overview" data-slot="map-overview">
+            <div class="km-shot-label">Project Screenshot 01</div>
+            <h3>Knowledge Map Overview</h3>
+            <div class="image fit">
+              <img src="assets/photos/mindmap/NewGraph.png" alt="Knowledge map graph showing concept nodes and mastery levels" />
+            </div>
+            <p class="km-shot-notes">
+              Current graph prototype showing a user-facing map with visible concepts and evolving mastery intensity.
+            </p>
+          </figure>
+
+          <h2>Section 2 - What a Knowledge Map Is</h2>
+          <p>
+            The map is a concept graph with hierarchical depth. It starts at broad domains such as mathematics,
+            sciences, humanities, and world languages, then decomposes into subfields and eventually lesson-sized,
+            fine-grained topics. It is designed to mirror how ideas are related in reality, not just how courses are
+            listed in catalogs.
+          </p>
+          <div class="km-grid-two">
+            <article class="km-card">
+              <h3>Shared Concept Structure</h3>
+              <p>
+                The core map exists as a canonical knowledge structure in the system. Every user references the same
+                conceptual backbone, which enables consistent interpretation and comparable progress signals.
+              </p>
+            </article>
+            <article class="km-card">
+              <h3>Example Concept Chain</h3>
+              <p class="km-chain">
+                Mathematics <span>&rarr;</span> Number Theory <span>&rarr;</span> Divisibility <span>&rarr;</span>
+                Division Algorithm <span>&rarr;</span> Integer Division
+              </p>
+              <p>
+                This depth is essential. A shallow taxonomy cannot represent the shape of understanding; a deep graph can.
+              </p>
+            </article>
+          </div>
+          <p>
+            The map is both content structure and personal progress structure: one part defines what ideas exist, the
+            other part records how mastery accumulates for each individual.
+          </p>
+
+          <h2>Section 3 - How the User's Map Grows</h2>
+          <p>
+            Users do not start with the full map exposed. The full structure is present in the backend, but the visible
+            map is sparse at first. As activity is logged and mastery appears on specific nodes, those nodes become
+            visible. The map grows outward from real engagement.
+          </p>
+          <div class="km-grid-two">
+            <article class="km-card">
+              <h3>Visibility Is Earned</h3>
+              <p>
+                Nodes are revealed when the user has demonstrated meaningful work connected to those concepts.
+                Visibility is not theoretical curriculum coverage; it is evidence-backed learning activity.
+              </p>
+            </article>
+            <article class="km-card">
+              <h3>Personal Topography</h3>
+              <p>
+                Over time, each profile becomes a unique intellectual map that reflects what that person has studied,
+                where they have depth, and where they have only early exposure.
+              </p>
+            </article>
+          </div>
+
+          <figure class="km-screenshot-frame" id="screenshot-map-growth" data-slot="map-growth">
+            <div class="km-shot-label">Project Screenshot 02</div>
+            <h3>Map Growth Over Time</h3>
+            <div class="km-shot-compare">
+              <section class="km-shot-panel">
+                <h4>Earlier Graph</h4>
+                <div class="image fit">
+                  <img src="assets/photos/mindmap/OldGraph.png" alt="Earlier knowledge map graph prototype" />
+                </div>
+              </section>
+              <section class="km-shot-panel">
+                <h4>Updated Graph</h4>
+                <div class="image fit">
+                  <img src="assets/photos/mindmap/NewGraph.png" alt="Updated knowledge map graph prototype" />
+                </div>
+              </section>
+            </div>
+            <p class="km-shot-notes">
+              Before and after graph snapshots that make growth visible as users continue posting and mastery propagates
+              through parent concepts.
+            </p>
+          </figure>
+
+          <h2>Section 4 - How Activity Posts Connect to the Map</h2>
+          <p>
+            The project loop starts with user activity posts. A post can include duration, activity type, and a written
+            description of what was actually worked on. That description is not just social content: it is input to a
+            concept inference pipeline.
+          </p>
+          <ul class="km-process">
+            <li>
+              <h3>1) Activity Capture</h3>
+              <p>User logs work session details and writes what they studied or built.</p>
+            </li>
+            <li>
+              <h3>2) Concept Inference</h3>
+              <p>ML and text understanding infer likely fine-grained leaf concepts from the description.</p>
+            </li>
+            <li>
+              <h3>3) Concept Matching</h3>
+              <p>One or more leaf nodes are selected with confidence-aware weighting.</p>
+            </li>
+            <li>
+              <h3>4) Mastery Update</h3>
+              <p>Matched nodes are incremented and the map state is recalculated for visibility and rollups.</p>
+            </li>
+          </ul>
+
+          <h2>Section 5 - How Mastery Works</h2>
+          <p>
+            Mastery is continuous, not binary. A relevant activity increases one or more leaf nodes by a measured amount.
+            That local gain then propagates upward through parent concepts with attenuation. The result is a map that
+            records both depth at specific nodes and breadth across larger domains.
+          </p>
+          <div class="km-mastery-flow">
+            <code>
+Leaf node increment: Integer Division + delta
+Parent propagation: Division Algorithm + delta * w1
+Higher parent: Divisibility + delta * w2
+Domain rollup: Number Theory + delta * w3
+            </code>
+          </div>
+          <p>
+            Higher-level concepts become meaningful summaries of many lower-level interactions. This is what makes the
+            map interpretable over months and years, rather than just sessions.
+          </p>
+
+          <h2>Section 6 - Social + Personal Dimension</h2>
+          <p>
+            The system combines personal knowledge tracking with social learning behavior. Users do not just post updates;
+            they build a visible representation of their intellectual life. The feed provides accountability, while the
+            map provides structure and cumulative meaning.
+          </p>
+          <div class="km-grid-two">
+            <article class="km-card">
+              <h3>Personal Signal</h3>
+              <p>
+                Individuals get a long-horizon record of what they have actually engaged with, not just what they planned
+                to study.
+              </p>
+            </article>
+            <article class="km-card">
+              <h3>Social Signal</h3>
+              <p>
+                Peers, collaborators, and mentors can see a structured profile of learning activity, not only a stream of
+                isolated posts.
+              </p>
+            </article>
+          </div>
+
+          <h2>Section 7 - Technical Foundation</h2>
+          <p>
+            The architecture separates stable knowledge structure from user-specific state. A shared graph captures the
+            curriculum and concept hierarchy. Per-user mastery overlays that shared graph without duplicating core
+            topology. Social and account workflows remain in relational storage, integrated with activity processing.
+          </p>
+          <div class="km-architecture-grid">
+            <article class="km-architecture-card">
+              <h3>Graph Layer</h3>
+              <p>
+                Graph database stores the shared concept hierarchy, parent-child relations, and traversal logic used for
+                propagation and visibility.
+              </p>
+            </article>
+            <article class="km-architecture-card">
+              <h3>User Overlay Layer</h3>
+              <p>
+                Per-user mastery values are layered on top of shared nodes, enabling personalized maps against a common
+                conceptual structure.
+              </p>
+            </article>
+            <article class="km-architecture-card">
+              <h3>Activity + Social Layer</h3>
+              <p>
+                Relational data model handles users, posts, feeds, and engagement metadata with transactional guarantees.
+              </p>
+            </article>
+            <article class="km-architecture-card">
+              <h3>Inference + Update Pipeline</h3>
+              <p>
+                NLP/ML concept assignment maps post text to leaf concepts, then triggers mastery propagation and map state
+                updates.
+              </p>
+            </article>
+          </div>
+
+          <figure class="km-screenshot-frame" id="screenshot-architecture" data-slot="architecture-diagram">
+            <div class="km-shot-label">Project Screenshot 03</div>
+            <h3>Project Surface Evolution</h3>
+            <div class="km-shot-compare">
+              <section class="km-shot-panel">
+                <h4>Earlier Home Surface</h4>
+                <div class="image fit">
+                  <img src="assets/photos/mindmap/OldHomePage.png" alt="Earlier version of the Knowledge Map home experience" />
+                </div>
+              </section>
+              <section class="km-shot-panel">
+                <h4>Updated Home Surface</h4>
+                <div class="image fit">
+                  <img src="assets/photos/mindmap/UpdatedHomePage.png" alt="Updated version of the Knowledge Map home experience" />
+                </div>
+              </section>
+            </div>
+            <p class="km-shot-notes">
+              UI iteration snapshots from the project that show how the feed and map surfaces are converging into a
+              single learning interface.
+            </p>
+          </figure>
+
+          <h2>Section 8 - Why This Is Different</h2>
+          <p>
+            Most learning tools capture artifacts, tasks, or memory prompts. The Knowledge Map captures conceptual
+            structure and evolving understanding.
+          </p>
+          <div class="km-diff-grid">
+            <article class="km-diff-item">
+              <h3>Vs. Note Apps</h3>
+              <p>Notes preserve content, but they rarely expose how ideas connect or where mastery is concentrated.</p>
+            </article>
+            <article class="km-diff-item">
+              <h3>Vs. Flashcards</h3>
+              <p>Flashcards optimize recall, but do not represent conceptual topology across domains and subdomains.</p>
+            </article>
+            <article class="km-diff-item">
+              <h3>Vs. Task Checklists</h3>
+              <p>Completed tasks are binary events, while understanding is partial, layered, and cumulative.</p>
+            </article>
+            <article class="km-diff-item">
+              <h3>Vs. Generic Social Feeds</h3>
+              <p>Post feeds show activity streams, but do not convert activity into an interpretable knowledge graph.</p>
+            </article>
+          </div>
+
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <section class="split contact">
+          <section>
+            <h3>Phone</h3>
+            <p><a href="tel:+17206956983">(720) 695-6983</a></p>
+          </section>
+          <section>
+            <h3>Email</h3>
+            <p><a href="mailto:timothy.churchillr@gmail.com">timothy.churchillr@gmail.com</a></p>
+          </section>
+          <section>
+            <h3>Location</h3>
+            <p>Boulder, CO</p>
+          </section>
+          <section>
+            <h3>Social</h3>
+            <ul class="icons alt">
+              <li><a href="https://www.linkedin.com/in/timothy-churchill-5bb23b241" class="icon brands alt fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+              <li><a href="https://github.com/Tim-Churchill" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+            </ul>
+          </section>
+        </section>
+      </footer>
+
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
