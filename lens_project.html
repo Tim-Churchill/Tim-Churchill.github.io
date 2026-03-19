@@ -13,7 +13,25 @@
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
     <style>
       .lens-hero {
-        margin-bottom: 2rem;
+        max-width: 18rem;
+        margin: 0 auto 1.5rem;
+        opacity: 0.68;
+      }
+
+      .lens-hero img {
+        display: block;
+        width: 100%;
+        transform: rotate(90deg) scale(0.8);
+        transform-origin: center;
+      }
+
+      .lens-hero figcaption {
+        margin-top: 0.5rem;
+        text-align: center;
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #6b7680;
       }
 
       .lens-section h2 {
@@ -39,6 +57,10 @@
       .equation-block .math {
         font-style: italic;
         font-weight: 600;
+      }
+
+      .equation-block div + div {
+        margin-top: 0.35rem;
       }
 
       .math {
@@ -81,9 +103,10 @@
             <p>Shaping optics with magnetic fields to create continuously tunable focus.</p>
           </header>
 
-          <div class="image main lens-hero">
+          <figure class="image lens-hero">
             <img src="assets/photos/lens_sketch.jpg" alt="Sketch of the paramagnetic liquid lens concept" />
-          </div>
+            <figcaption>Concept Sketch</figcaption>
+          </figure>
 
           <h2>A Paramagnetic Liquid Lens: Shaping Optics with Magnetic Fields</h2>
           <p>
@@ -93,9 +116,9 @@
             limits on speed and smoothness.
           </p>
           <p>
-            This project explores a different approach -- shaping light by shaping a liquid, using magnetic fields
+            This project explores a different approach: shaping light by shaping a liquid, using magnetic fields
             instead of motors. Specifically, I am developing a paramagnetic liquid lens, where the curvature of a
-            liquid interface -- and therefore the focal length of the lens -- is dynamically controlled by externally
+            liquid interface, and therefore the focal length of the lens, is dynamically controlled by externally
             applied magnetic field gradients.
           </p>
 
@@ -120,7 +143,7 @@
 
           <h2>Why a Liquid Lens?</h2>
           <p>
-            Liquid lenses are not new -- electrowetting lenses are already used in compact cameras and medical devices.
+            Liquid lenses are not new. Electrowetting lenses are already used in compact cameras and medical devices.
             However, magnetic actuation offers several distinct advantages:
           </p>
           <ul>
@@ -145,7 +168,7 @@
           <p>
             where <span class="math">χ</span> is the magnetic susceptibility of the liquid and <span class="math">B</span>
             is the magnetic field strength. This magnetic force competes with surface tension, gravity, and container
-            geometry. The equilibrium surface shape -- and thus the optical behavior of the lens -- emerges from the
+            geometry. The equilibrium surface shape, and thus the optical behavior of the lens, emerges from the
             balance of these effects.
           </p>
 
@@ -155,29 +178,30 @@
             it. The net force comes from the gradient of the field energy, and the contributions from each point add.
           </p>
           <div class="equation-block">
-            <div>F = (chi · V / (2 · mu0)) · grad(B^2)</div>
-            <div>grad(B^2) = sum_i grad(B_i^2)</div>
+            <div><span class="math">F = (&chi;V / 2&mu;<sub>0</sub>) &middot; &nabla;(B<sup>2</sup>)</span></div>
+            <div><span class="math">&nabla;(B<sup>2</sup>) = &Sigma;<sub>i</sub> &nabla;(B<sub>i</sub><sup>2</sup>)</span></div>
           </div>
           <p>
             If you want the field to provide a target force (for example, a fraction of the sphere's weight), the
             required field gradient is:
           </p>
           <div class="equation-block">
-            <div>grad(B^2) = 2 · mu0 · F / (chi · V)</div>
-            <div>F_target = alpha · rho · g · (4/3) · pi · R^3</div>
+            <div><span class="math">&nabla;(B<sup>2</sup>) = 2&mu;<sub>0</sub>F / (&chi;V)</span></div>
+            <div><span class="math">F<sub>target</sub> = &alpha;&rho;g(4/3)&pi;R<sup>3</sup></span></div>
           </div>
           <p>
             For equal concentration and temperature, paramagnetic susceptibility scales with the square of the
             effective magnetic moment. Using spin-only moments:
           </p>
           <div class="equation-block">
-            <div>mu_eff(Gd3+) ≈ 7.94 muB</div>
-            <div>mu_eff(Mn2+) ≈ 5.92 muB</div>
-            <div>chi_Gd / chi_Mn ≈ (7.94 / 5.92)^2 ≈ 1.80</div>
+            <div><span class="math">&mu;<sub>eff</sub>(Gd<sup>3+</sup>) &asymp; 7.94&mu;<sub>B</sub></span></div>
+            <div><span class="math">&mu;<sub>eff</sub>(Mn<sup>2+</sup>) &asymp; 5.92&mu;<sub>B</sub></span></div>
+            <div><span class="math">&chi;<sub>Gd</sub> / &chi;<sub>Mn</sub> &asymp; (7.94 / 5.92)<sup>2</sup> &asymp; 1.80</span></div>
           </div>
           <p>
             This means, for the same geometry and target force, a gadolinium nitrate solution would need roughly
-            0.56× the field gradient required by a manganese chloride solution. The animation below visualizes the
+            0.56 times the <span class="math">&nabla;(B<sup>2</sup>)</span> requirement of a manganese chloride solution.
+            The animation below visualizes the
             setup and the scaling.
           </p>
 
@@ -228,7 +252,7 @@
           <p>
             In operation, the system behaves as a continuous analog actuator. Increasing the magnetic field gradient
             increases surface curvature, changing field geometry reshapes the lens profile, and removing the field
-            allows the surface to relax back toward equilibrium. There is no discrete \"focus position\" -- the lens
+            allows the surface to relax back toward equilibrium. There is no discrete "focus position." The lens
             transitions smoothly across focal lengths.
           </p>
 
@@ -253,7 +277,7 @@
           <p>
             This project is ultimately about rethinking a basic assumption in optics: that lenses must be rigid
             objects. By treating the lens as a dynamic physical system shaped by fields rather than by mechanisms, we
-            gain new degrees of freedom -- along with new challenges that are worth solving.
+            gain new degrees of freedom, along with new challenges that are worth solving.
           </p>
         </section>
 

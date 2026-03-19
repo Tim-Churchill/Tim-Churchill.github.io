@@ -11,6 +11,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>
+      .status-chip {
+        display: inline-block;
+        margin-bottom: 0.9rem;
+        padding: 0.28rem 0.65rem;
+        border: 1px solid rgba(24, 191, 239, 0.35);
+        border-radius: 999px;
+        background: rgba(24, 191, 239, 0.08);
+        color: #126b84;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .focus-list {
+        margin-bottom: 2rem;
+      }
+    </style>
   </head>
 
   <body class="is-preload">
@@ -43,15 +62,55 @@
             <span class="date">April 25, 2017</span>
             <h1>Drone Path Planning<br />
             and Control</h1>
-            <p>Work with NAPP Lab on path planning and control for Crazyflie drones.</p>
+            <span class="status-chip">In Progress</span>
+            <p>Work with NAPPLab on path planning and control for Crazyflie drones.</p>
           </header>
           <div class="image main"><img src="assets/photos/crazy_flie_drone_image.jpeg" alt="Crazyflie drone in flight" /></div>
 
           <h2>Project Overview</h2>
           <p>
-            This project focuses on developing planning and control methods for small quadrotor drones. The goal is
-            to reliably move a Crazyflie platform through complex environments while maintaining stability and
-            repeatable trajectories.
+            This project focuses on building a reliable workflow for planning, tracking, and flying Crazyflie drones
+            in a motion-capture environment. My work has centered on connecting the full stack end to end: simulation,
+            ROS integration, motion-capture data, trajectory execution, and the practical constraints that determine
+            whether the system is actually usable in the lab.
+          </p>
+          <p>
+            The main challenge has not been a single algorithmic problem, but system integration. That has included
+            debugging OptiTrack and NatNet connectivity, resolving network-interface issues, validating motion-capture
+            topics in ROS, testing Crazyradio and motor bring-up, and working through the differences between
+            simulation and real flight. The result is a stronger path toward repeatable autonomous flight rather than
+            one-off demos.
+          </p>
+
+          <h2>Current Focus</h2>
+          <ul class="focus-list">
+            <li>Stabilizing motion-capture-based flight with Crazyflie in the arena.</li>
+            <li>Designing and testing hand-built trajectories such as a figure eight.</li>
+            <li>Checking arena bounds, camera coverage, and initialization assumptions that affect tracking quality.</li>
+            <li>Improving battery handling, documentation, and lab workflow for repeatable testing.</li>
+          </ul>
+
+          <h2>Recent Progress</h2>
+          <p>
+            Recent work includes setting up the simulation environment, testing flatness-based trajectory generation,
+            and connecting planner outputs to the flight stack. I also worked through compatibility problems around
+            ROS, Python environments, and supporting tools, while cleaning up repository structure and documenting the
+            setup needed to get the system running consistently.
+          </p>
+          <p>
+            On the flight side, I brought up Crazyradio communication, tested motor activation, and pushed motion
+            capture further toward real use by getting ROS topics to report usable position data. A major part of the
+            work has been identifying why tracking quality degrades in practice, including issues tied to network
+            configuration, initial pose assumptions, and orientation estimation when using limited marker information.
+          </p>
+
+          <h2>What Comes Next</h2>
+          <p>
+            The near-term goal is stable, repeatable trajectory tracking inside the flight space. That means mapping
+            the arena bounds, adapting trajectories to the available volume, and validating initialization so the drone
+            starts with the correct pose estimate. From there, the next layer of work is analyzing tracking error more
+            carefully, comparing different hardware and tracking configurations, and improving the reliability of the
+            overall autonomy pipeline.
           </p>
 
           <h2>Focus Areas</h2>
