@@ -9,35 +9,37 @@
     <style>
       :root {
         --kmp-ink: #18232d;
-        --kmp-paper: #f4ede1;
-        --kmp-panel: rgba(255, 255, 255, 0.9);
-        --kmp-line: rgba(24, 35, 45, 0.14);
-        --kmp-cyan: #18bfef;
-        --kmp-warm: #f46b45;
-        --kmp-muted: #5f6972;
+        --kmp-muted: #5b6670;
+        --kmp-line: rgba(24, 35, 45, 0.12);
+        --kmp-cyan: #bfeef7;
+        --kmp-cyan-strong: #1393b4;
+        --kmp-warm: #ffd8b3;
+        --kmp-warm-strong: #d26a24;
+        --kmp-paper: #f8f2e8;
+        --kmp-white: rgba(255, 255, 255, 0.9);
       }
 
-      .kmp-poster-page {
+      .kmp-page {
         padding-bottom: 1rem;
       }
 
-      .kmp-stage {
+      .kmp-board {
         position: relative;
         overflow: hidden;
         padding: 2rem;
         border: 1px solid var(--kmp-line);
-        border-radius: 24px;
+        border-radius: 26px;
         background:
-          radial-gradient(circle at top right, rgba(24, 191, 239, 0.16), transparent 28%),
-          radial-gradient(circle at bottom left, rgba(244, 107, 69, 0.14), transparent 24%),
-          linear-gradient(135deg, #f3ebde 0%, #fcfaf5 48%, #f6f0e6 100%);
+          radial-gradient(circle at top right, rgba(19, 147, 180, 0.12), transparent 26%),
+          radial-gradient(circle at bottom left, rgba(210, 106, 36, 0.12), transparent 24%),
+          linear-gradient(135deg, #f7efe2 0%, #fffdf9 46%, #f0fbfe 100%);
       }
 
-      .kmp-stage::after {
+      .kmp-board::before {
         content: "";
         position: absolute;
-        inset: 18px;
-        border: 1px dashed rgba(24, 35, 45, 0.12);
+        inset: 16px;
+        border: 1px dashed rgba(24, 35, 45, 0.1);
         border-radius: 18px;
         pointer-events: none;
       }
@@ -50,134 +52,94 @@
         gap: 1rem;
       }
 
-      .kmp-panel {
-        position: relative;
+      .kmp-card {
+        grid-column: span 6;
         padding: 1.35rem;
         border: 1px solid var(--kmp-line);
-        border-radius: 18px;
-        background: var(--kmp-panel);
-        box-shadow: 0 18px 35px rgba(24, 35, 45, 0.08);
+        border-radius: 20px;
+        background: var(--kmp-white);
+        box-shadow: 0 16px 35px rgba(24, 35, 45, 0.07);
       }
 
-      .kmp-panel > :last-child {
+      .kmp-card > :last-child {
         margin-bottom: 0;
       }
 
-      .kmp-panel--hero {
-        grid-column: span 7;
-        color: #ffffff;
-        background: linear-gradient(160deg, #1f2933 0%, #243545 65%, #18232d 100%);
-        border-color: rgba(255, 255, 255, 0.12);
-      }
-
-      .kmp-panel--problem {
-        grid-column: span 5;
-        color: #ffffff;
-        background: linear-gradient(180deg, #283440 0%, #18232d 100%);
-        border-color: rgba(255, 255, 255, 0.1);
-      }
-
-      .kmp-panel--solution {
-        grid-column: span 5;
-        background: linear-gradient(135deg, #fff7f1 0%, #fffefe 100%);
-        border-color: rgba(244, 107, 69, 0.28);
-      }
-
-      .kmp-panel--visual {
-        grid-column: span 7;
-      }
-
-      .kmp-panel--full {
+      .kmp-card--hero,
+      .kmp-card--wide,
+      .kmp-card--closer {
         grid-column: 1 / -1;
       }
 
-      .kmp-panel--third {
-        grid-column: span 4;
+      .kmp-card--hero {
+        padding: 2rem;
+        background: linear-gradient(135deg, #fff5ea 0%, #fffdf9 55%, #eaf9fd 100%);
       }
 
-      .kmp-panel--compare {
-        grid-column: span 5;
-        color: #ffffff;
-        background: linear-gradient(180deg, #20303d 0%, #10191f 100%);
-        border-color: rgba(255, 255, 255, 0.1);
+      .kmp-card--warm {
+        background: linear-gradient(135deg, #fff3e4 0%, #fffdf9 100%);
       }
 
-      .kmp-panel--wide {
-        grid-column: span 7;
+      .kmp-card--cyan {
+        background: linear-gradient(135deg, #ebfafc 0%, #fffefe 100%);
       }
 
-      .kmp-panel--half {
-        grid-column: span 6;
-      }
-
-      .kmp-panel--cyan {
-        background: linear-gradient(135deg, #edfafe 0%, #ffffff 100%);
-        border-color: rgba(24, 191, 239, 0.24);
-      }
-
-      .kmp-panel--warm {
-        background: linear-gradient(135deg, #fff6ef 0%, #ffffff 100%);
-        border-color: rgba(244, 107, 69, 0.24);
-      }
-
-      .kmp-panel--closer {
+      .kmp-card--closer {
         text-align: center;
-        color: #ffffff;
-        background: linear-gradient(135deg, #18232d 0%, #24394a 100%);
-        border-color: rgba(255, 255, 255, 0.12);
+        background: linear-gradient(135deg, #fffaf3 0%, #f1fbfe 100%);
       }
 
       .kmp-kicker {
-        margin-bottom: 0.65rem;
+        margin-bottom: 0.7rem;
+        color: var(--kmp-muted);
         font-family: "Source Sans Pro", Helvetica, sans-serif;
         font-size: 0.76rem;
         font-weight: 900;
-        line-height: 1.2;
         letter-spacing: 0.18em;
+        line-height: 1.2;
         text-transform: uppercase;
-        color: var(--kmp-muted);
       }
 
-      .kmp-panel--hero .kmp-kicker,
-      .kmp-panel--problem .kmp-kicker,
-      .kmp-panel--compare .kmp-kicker,
-      .kmp-panel--closer .kmp-kicker {
-        color: rgba(255, 255, 255, 0.72);
+      .kmp-display {
+        margin-bottom: 0.9rem;
+        color: var(--kmp-ink);
+        font-size: clamp(2.5rem, 6vw, 4.8rem);
+        line-height: 0.95;
       }
 
-      .kmp-panel h2,
-      .kmp-panel h3 {
-        margin-bottom: 0.7rem;
+      .kmp-card h2,
+      .kmp-card h3 {
+        margin-bottom: 0.65rem;
       }
 
-      .kmp-panel p {
+      .kmp-card p {
         margin: 0 0 1rem;
+        color: var(--kmp-ink);
         text-align: left;
-        line-height: 1.75;
+        line-height: 1.7;
       }
 
-      .kmp-panel--closer p {
+      .kmp-card--closer p {
         text-align: center;
       }
 
-      .kmp-core {
+      .kmp-lead {
+        max-width: 50rem;
         font-size: 1.18rem;
       }
 
       .kmp-quote {
         display: block;
-        padding: 0.95rem 1rem;
-        border-left: 4px solid var(--kmp-cyan);
+        padding: 0.9rem 1rem;
+        border-left: 4px solid var(--kmp-cyan-strong);
         border-radius: 0 12px 12px 0;
-        background: rgba(24, 191, 239, 0.08);
+        background: rgba(19, 147, 180, 0.08);
         font-style: italic;
       }
 
-      .kmp-panel--problem .kmp-quote,
-      .kmp-panel--compare .kmp-quote,
-      .kmp-panel--closer .kmp-quote {
-        border-left-color: var(--kmp-warm);
-        background: rgba(255, 255, 255, 0.08);
+      .kmp-card--warm .kmp-quote {
+        border-left-color: var(--kmp-warm-strong);
+        background: rgba(210, 106, 36, 0.08);
       }
 
       .kmp-list {
@@ -187,92 +149,38 @@
 
       .kmp-list li {
         position: relative;
-        margin-bottom: 0.65rem;
+        margin-bottom: 0.6rem;
         padding-left: 1rem;
-        line-height: 1.7;
+        color: var(--kmp-ink);
+        line-height: 1.6;
       }
 
       .kmp-list li::before {
         content: "";
         position: absolute;
-        top: 0.75rem;
+        top: 0.7rem;
         left: 0;
-        width: 0.42rem;
-        height: 0.42rem;
+        width: 0.45rem;
+        height: 0.45rem;
         border-radius: 999px;
-        background: var(--kmp-cyan);
+        background: var(--kmp-cyan-strong);
       }
 
       .kmp-list--warm li::before {
-        background: var(--kmp-warm);
-      }
-
-      .kmp-mini-script {
-        margin-top: 1.4rem;
-        padding: 1rem 1.05rem;
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.08);
-      }
-
-      .kmp-mini-script p {
-        color: rgba(255, 255, 255, 0.92);
-      }
-
-      .kmp-shot {
-        margin: 0 0 1rem;
-        padding: 0.75rem;
-        border: 1px solid rgba(24, 35, 45, 0.12);
-        border-radius: 16px;
-        background: #ffffff;
-      }
-
-      .kmp-shot img {
-        display: block;
-        width: 100%;
-        border-radius: 10px;
-      }
-
-      .kmp-map-points {
-        display: grid;
-        gap: 0.75rem;
-      }
-
-      .kmp-map-point {
-        display: flex;
-        gap: 0.75rem;
-        align-items: flex-start;
-        padding: 0.8rem 0.9rem;
-        border: 1px solid rgba(24, 35, 45, 0.08);
-        border-radius: 14px;
-        background: rgba(255, 255, 255, 0.72);
-      }
-
-      .kmp-dot {
-        width: 0.85rem;
-        height: 0.85rem;
-        border-radius: 999px;
-        flex-shrink: 0;
-        margin-top: 0.4rem;
-        background: linear-gradient(135deg, var(--kmp-cyan) 0%, var(--kmp-warm) 100%);
-        box-shadow: 0 0 0 6px rgba(24, 191, 239, 0.12);
-      }
-
-      .kmp-map-point p {
-        margin: 0;
+        background: var(--kmp-warm-strong);
       }
 
       .kmp-flow {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 0.9rem;
+        gap: 0.8rem;
       }
 
       .kmp-step {
         padding: 1rem;
-        border: 1px solid rgba(24, 35, 45, 0.1);
+        border: 1px solid rgba(24, 35, 45, 0.08);
         border-radius: 16px;
-        background: rgba(255, 255, 255, 0.8);
+        background: rgba(255, 255, 255, 0.72);
       }
 
       .kmp-step-number {
@@ -281,7 +189,7 @@
         justify-content: center;
         width: 2rem;
         height: 2rem;
-        margin-bottom: 0.8rem;
+        margin-bottom: 0.7rem;
         border-radius: 999px;
         background: var(--kmp-ink);
         color: #ffffff;
@@ -292,57 +200,26 @@
 
       .kmp-step h3 {
         font-size: 1rem;
-        margin-bottom: 0.45rem;
+        margin-bottom: 0.4rem;
       }
 
       .kmp-step p {
         margin: 0;
       }
 
-      .kmp-scale {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 0.6rem;
-        margin-top: 1rem;
-      }
-
-      .kmp-scale span {
-        padding: 0.75rem 0.6rem;
-        border-radius: 12px;
-        text-align: center;
-        font-family: "Source Sans Pro", Helvetica, sans-serif;
-        font-size: 0.78rem;
-        font-weight: 900;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--kmp-ink);
-        background: rgba(24, 191, 239, 0.12);
-      }
-
-      .kmp-scale span:nth-child(2) {
-        background: rgba(24, 191, 239, 0.18);
-      }
-
-      .kmp-scale span:nth-child(3) {
-        background: rgba(24, 191, 239, 0.24);
-      }
-
-      .kmp-scale span:nth-child(4) {
-        background: rgba(24, 191, 239, 0.3);
-      }
-
       .kmp-chip-row {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.65rem;
+        gap: 0.55rem;
         margin-top: 1rem;
       }
 
       .kmp-chip {
         padding: 0.45rem 0.75rem;
-        border-radius: 999px;
         border: 1px solid rgba(24, 35, 45, 0.12);
+        border-radius: 999px;
         background: rgba(255, 255, 255, 0.82);
+        color: var(--kmp-ink);
         font-family: "Source Sans Pro", Helvetica, sans-serif;
         font-size: 0.75rem;
         font-weight: 900;
@@ -350,16 +227,18 @@
         text-transform: uppercase;
       }
 
-      .kmp-chip--muted {
-        opacity: 0.75;
+      .kmp-chip--cyan {
+        border-color: rgba(19, 147, 180, 0.24);
+        background: rgba(191, 238, 247, 0.42);
       }
 
-      .kmp-chip--accent {
-        border-color: rgba(24, 191, 239, 0.32);
+      .kmp-chip--warm {
+        border-color: rgba(210, 106, 36, 0.22);
+        background: rgba(255, 216, 179, 0.4);
       }
 
       .kmp-actions {
-        margin: 1.35rem 0 0;
+        margin-top: 1.2rem;
       }
 
       .kmp-actions .actions {
@@ -367,23 +246,15 @@
       }
 
       @media screen and (max-width: 980px) {
-        .kmp-stage {
+        .kmp-board {
           padding: 1.25rem;
         }
 
-        .kmp-panel--hero,
-        .kmp-panel--problem,
-        .kmp-panel--solution,
-        .kmp-panel--visual,
-        .kmp-panel--third,
-        .kmp-panel--compare,
-        .kmp-panel--wide,
-        .kmp-panel--half {
+        .kmp-card {
           grid-column: 1 / -1;
         }
 
-        .kmp-flow,
-        .kmp-scale {
+        .kmp-flow {
           grid-template-columns: 1fr;
         }
       }
@@ -411,224 +282,105 @@
       </nav>
 
       <div id="main">
-        <section class="post kmp-poster-page">
+        <section class="post kmp-page">
           <header class="major">
             <span class="date">Pitch Poster - April 2026</span>
             <h1>The Knowledge Map</h1>
-            <p>A fast, visual version of the concept for judges, classmates, or anyone who needs the big picture quickly.</p>
+            <p>A short, text-only version of the idea.</p>
           </header>
 
-          <section class="kmp-stage">
+          <section class="kmp-board">
             <div class="kmp-grid">
-              <article class="kmp-panel kmp-panel--hero">
-                <p class="kmp-kicker">01 | The Core Idea</p>
-                <h2>Map what you know. Watch it grow. Decide what to learn next.</h2>
-                <p class="kmp-core">
+              <article class="kmp-card kmp-card--hero">
+                <p class="kmp-kicker">The Core Idea</p>
+                <h2 class="kmp-display">Learning should leave a map.</h2>
+                <p class="kmp-lead">
                   I'm building a platform that maps what you know, shows how your knowledge grows over time, and helps
                   you decide what to learn next.
                 </p>
-                <p>
-                  Think of it as a living map of your knowledge that updates automatically based on what you learn and
-                  share.
-                </p>
+                <p>Think of it as a living knowledge map that updates from what you learn and share.</p>
                 <div class="kmp-actions">
                   <ul class="actions">
                     <li><a href="knowledge_map.html" class="button primary">Full Project Page</a></li>
-                    <li><a href="#poster-how-it-works" class="button">How It Works</a></li>
                   </ul>
                 </div>
-                <div class="kmp-mini-script">
-                  <p class="kmp-kicker">30-Second Version</p>
-                  <p>
-                    I'm building a platform that maps what you know and tracks how your understanding grows over time.
-                    Right now learning is fragmented. Notes, posts, and courses do not connect. This creates a structured
-                    knowledge graph from your activity, showing what you've learned, how deeply you understand it, and
-                    what to learn next. It turns learning into something visible, measurable, and intentional.
-                  </p>
-                </div>
               </article>
 
-              <article class="kmp-panel kmp-panel--problem">
-                <p class="kmp-kicker">02 | The Problem</p>
-                <h2>Learning is fragmented, but understanding is not.</h2>
+              <article class="kmp-card kmp-card--warm">
+                <p class="kmp-kicker">The Problem</p>
+                <h2>Learning is fragmented.</h2>
                 <ul class="kmp-list kmp-list--warm">
-                  <li>Notes live in one place.</li>
-                  <li>Posts live somewhere else.</li>
-                  <li>Courses live somewhere else again.</li>
-                  <li>You cannot clearly see what you actually know.</li>
+                  <li>Notes, posts, and courses do not connect.</li>
+                  <li>You cannot clearly see what you know.</li>
                   <li>You cannot measure progress in a meaningful way.</li>
-                  <li>You do not know what to learn next.</li>
-                  <li>Social platforms reward content, not understanding.</li>
                 </ul>
-                <p class="kmp-quote">
-                  "We spend thousands of hours learning, but we have no clear structure of what we've built."
-                </p>
+                <p class="kmp-quote">We spend thousands of hours learning, but we have no clear structure of what we have built.</p>
               </article>
 
-              <article class="kmp-panel kmp-panel--solution">
-                <p class="kmp-kicker">03 | The Solution</p>
-                <h2>Track understanding instead of activity logs.</h2>
+              <article class="kmp-card kmp-card--cyan">
+                <p class="kmp-kicker">The Solution</p>
+                <h2>Track understanding, not just activity.</h2>
                 <ul class="kmp-list">
                   <li>Build a personal knowledge map.</li>
-                  <li>Organize concepts into a structured graph.</li>
-                  <li>Track mastery over time.</li>
-                  <li>Update automatically from posts, study activity, and discussions.</li>
+                  <li>Track concepts and mastery over time.</li>
+                  <li>Update the map from study, posts, and discussion.</li>
                 </ul>
-                <p class="kmp-quote">"Instead of tracking what you did, we track what you understand."</p>
+                <p class="kmp-quote">Instead of tracking what you did, we track what you understand.</p>
               </article>
 
-              <article class="kmp-panel kmp-panel--visual">
-                <p class="kmp-kicker">05 | The Knowledge Map</p>
-                <h2>You can literally see the shape of your knowledge.</h2>
-                <figure class="kmp-shot">
-                  <img src="assets/photos/mindmap/NewGraph.png" alt="Knowledge map graph showing connected concept nodes and mastery levels" />
-                </figure>
-                <div class="kmp-map-points">
-                  <div class="kmp-map-point">
-                    <span class="kmp-dot"></span>
-                    <p>Each node represents a concept.</p>
-                  </div>
-                  <div class="kmp-map-point">
-                    <span class="kmp-dot"></span>
-                    <p>Connections show how topics relate to each other.</p>
-                  </div>
-                  <div class="kmp-map-point">
-                    <span class="kmp-dot"></span>
-                    <p>The graph shows what you have explored, how deeply you understand it, and how ideas connect.</p>
-                  </div>
-                </div>
-              </article>
-
-              <article class="kmp-panel kmp-panel--full kmp-panel--cyan" id="poster-how-it-works">
-                <p class="kmp-kicker">04 | How It Works</p>
-                <h2>Your activity directly builds a structured representation of your knowledge.</h2>
+              <article class="kmp-card kmp-card--wide">
+                <p class="kmp-kicker">How It Works</p>
+                <h2>Your activity builds the map.</h2>
                 <div class="kmp-flow">
                   <section class="kmp-step">
                     <div class="kmp-step-number">1</div>
-                    <h3>You learn something</h3>
+                    <h3>Learn</h3>
                     <p>Read, study, build, or discuss.</p>
                   </section>
                   <section class="kmp-step">
                     <div class="kmp-step-number">2</div>
-                    <h3>You post or log it</h3>
-                    <p>The activity becomes usable signal, not just a record.</p>
+                    <h3>Log</h3>
+                    <p>Post or record the activity.</p>
                   </section>
                   <section class="kmp-step">
                     <div class="kmp-step-number">3</div>
-                    <h3>The system interprets it</h3>
-                    <p>It identifies related concepts and updates the relevant parts of the graph.</p>
+                    <h3>Map</h3>
+                    <p>The system links it to concepts.</p>
                   </section>
                   <section class="kmp-step">
                     <div class="kmp-step-number">4</div>
-                    <h3>Your map gets richer</h3>
-                    <p>The structure grows more detailed as your understanding accumulates over time.</p>
+                    <h3>Grow</h3>
+                    <p>Your knowledge map gains depth over time.</p>
                   </section>
                 </div>
               </article>
 
-              <article class="kmp-panel kmp-panel--third kmp-panel--cyan">
-                <p class="kmp-kicker">06 | Mastery And Progress</p>
-                <h2>Progress is not streaks. It is evolving understanding.</h2>
-                <p>Each concept can move through visible levels of mastery rather than sitting in a binary learned or not learned state.</p>
-                <div class="kmp-scale">
-                  <span>Beginner</span>
-                  <span>Intermediate</span>
-                  <span>Advanced</span>
-                  <span>Integrated</span>
-                </div>
-                <p class="kmp-quote">"Progress is how your understanding evolves."</p>
-              </article>
-
-              <article class="kmp-panel kmp-panel--third kmp-panel--warm">
-                <p class="kmp-kicker">07 | Planning</p>
+              <article class="kmp-card">
+                <p class="kmp-kicker">Why It Stands Out</p>
                 <h2>You do not just track learning. You design it.</h2>
-                <p>Future topics can exist on the map before you know them. Intention turns into visible structure.</p>
-                <ul class="kmp-list kmp-list--warm">
-                  <li>Build learning plans directly on the map.</li>
-                  <li>Add future nodes before mastery exists.</li>
-                  <li>Create routes instead of vague goals.</li>
-                </ul>
-              </article>
-
-              <article class="kmp-panel kmp-panel--third">
-                <p class="kmp-kicker">08 | Explore Mode</p>
-                <h2>See your learning from different angles.</h2>
-                <p>Explore mode helps people understand the pattern of how they have been learning, not just what they last touched.</p>
+                <p>The map can support planning, exploration, and comparison instead of acting like a passive archive.</p>
                 <div class="kmp-chip-row">
-                  <span class="kmp-chip kmp-chip--accent">Recent Activity</span>
-                  <span class="kmp-chip kmp-chip--accent">Dense Areas</span>
-                  <span class="kmp-chip kmp-chip--accent">Weak Areas</span>
-                </div>
-                <p class="kmp-quote">"It helps you understand how you've been learning."</p>
-              </article>
-
-              <article class="kmp-panel kmp-panel--compare">
-                <p class="kmp-kicker">09 | Compare Mode</p>
-                <h2>Compare knowledge structure, not just output.</h2>
-                <p>People could compare their map with friends, benchmarks, or reference figures and get insight into overlap, gaps, and strengths.</p>
-                <ul class="kmp-list kmp-list--warm">
-                  <li>Where do we overlap?</li>
-                  <li>What am I missing?</li>
-                  <li>Where is my depth unusually strong?</li>
-                </ul>
-                <p class="kmp-quote">"You can compare your knowledge structure, not just your output."</p>
-              </article>
-
-              <article class="kmp-panel kmp-panel--wide">
-                <p class="kmp-kicker">10 | Why This Matters</p>
-                <h2>This turns learning into something you can see, measure, and shape.</h2>
-                <p>
-                  The goal is to make learning visible, structured, and cumulative. When people can see the shape of
-                  their knowledge, they can learn more intentionally, spot gaps earlier, and stay motivated by real
-                  progress instead of empty motion.
-                </p>
-                <div class="kmp-chip-row">
-                  <span class="kmp-chip">Visible</span>
-                  <span class="kmp-chip">Structured</span>
-                  <span class="kmp-chip">Cumulative</span>
-                  <span class="kmp-chip">Intentional</span>
+                  <span class="kmp-chip kmp-chip--warm">Plan future topics</span>
+                  <span class="kmp-chip kmp-chip--cyan">Explore strengths and gaps</span>
+                  <span class="kmp-chip kmp-chip--warm">Compare knowledge structure</span>
                 </div>
               </article>
 
-              <article class="kmp-panel kmp-panel--half">
-                <p class="kmp-kicker">11 | What Makes It Unique</p>
-                <h2>It is not a note app, a course platform, or a social feed.</h2>
+              <article class="kmp-card">
+                <p class="kmp-kicker">Why It Matters</p>
+                <h2>Make learning visible, structured, and cumulative.</h2>
+                <p>This turns learning into something you can see, measure, and shape instead of something that disappears into scattered artifacts.</p>
                 <div class="kmp-chip-row">
-                  <span class="kmp-chip kmp-chip--muted">Not a note app</span>
-                  <span class="kmp-chip kmp-chip--muted">Not a course platform</span>
-                  <span class="kmp-chip kmp-chip--muted">Not a social feed</span>
+                  <span class="kmp-chip kmp-chip--cyan">Visible</span>
+                  <span class="kmp-chip kmp-chip--warm">Structured</span>
+                  <span class="kmp-chip kmp-chip--cyan">Cumulative</span>
+                  <span class="kmp-chip kmp-chip--warm">Intentional</span>
                 </div>
-                <div class="kmp-chip-row">
-                  <span class="kmp-chip kmp-chip--accent">Knowledge graph</span>
-                  <span class="kmp-chip kmp-chip--accent">Social system</span>
-                  <span class="kmp-chip kmp-chip--accent">Planning tool</span>
-                </div>
-                <p class="kmp-quote">
-                  "There is not really anything else that combines structure, progress, and social learning like this."
-                </p>
               </article>
 
-              <article class="kmp-panel kmp-panel--half kmp-panel--warm">
-                <p class="kmp-kicker">12 | Future Vision</p>
-                <h2>Over time, the system can guide what you should learn next.</h2>
-                <ul class="kmp-list kmp-list--warm">
-                  <li>Personalized learning paths.</li>
-                  <li>Intelligent recommendations.</li>
-                  <li>Benchmark comparisons.</li>
-                  <li>Richer knowledge modeling.</li>
-                </ul>
-                <p class="kmp-quote">The map starts as a mirror of learning and grows into a guide for it.</p>
-              </article>
-
-              <article class="kmp-panel kmp-panel--full kmp-panel--closer">
+              <article class="kmp-card kmp-card--closer">
                 <p class="kmp-kicker">Closer</p>
                 <h2>The goal is simple: make knowledge something you can actually see and build over time.</h2>
-                <p>This project is about turning learning from a pile of scattered evidence into a visible structure that compounds.</p>
-                <div class="kmp-actions">
-                  <ul class="actions special">
-                    <li><a href="knowledge_map.html" class="button primary">Back To Full Story</a></li>
-                  </ul>
-                </div>
               </article>
             </div>
           </section>
