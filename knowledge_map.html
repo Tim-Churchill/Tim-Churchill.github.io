@@ -60,6 +60,35 @@
         background: #ffffff;
       }
 
+      .km-poster-callout {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1.5rem;
+        border: 1px solid rgba(33, 41, 49, 0.12);
+        border-radius: 14px;
+        padding: 1.35rem 1.5rem;
+        margin-bottom: 2rem;
+        background: linear-gradient(135deg, #fff7ef 0%, #ffffff 55%, #f2fbff 100%);
+      }
+
+      .km-poster-callout h2 {
+        margin: 0 0 0.45rem;
+      }
+
+      .km-poster-callout p {
+        margin: 0;
+      }
+
+      .km-poster-callout .actions {
+        margin: 0;
+        flex-shrink: 0;
+      }
+
+      .km-poster-callout .button {
+        white-space: nowrap;
+      }
+
       .km-card h3 {
         margin-bottom: 0.55rem;
       }
@@ -223,6 +252,11 @@
           grid-template-columns: 1fr;
         }
 
+        .km-poster-callout {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
         .km-hero {
           padding: 1.7rem 1.3rem;
         }
@@ -261,6 +295,17 @@
             <h1>The Knowledge Map</h1>
             <p>A living map of understanding, built from real learning activity.</p>
           </header>
+
+          <section class="km-poster-callout">
+            <div>
+              <p class="km-eyebrow">New Subpage - Pitch Poster</p>
+              <h2>See the short, visual selling-points version</h2>
+              <p>A poster-style page that turns the concept, differentiators, and future vision into a quick pitch.</p>
+            </div>
+            <ul class="actions">
+              <li><a href="knowledge_map_poster.html" class="button primary">Open Poster</a></li>
+            </ul>
+          </section>
 
           <section class="km-hero">
             <p class="km-eyebrow">Section 1 - Big Idea</p>
