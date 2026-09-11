@@ -221,7 +221,7 @@
       ctx.fillStyle = "rgba(184,237,203,.08)";
       ctx.fill();
 
-      // The Field Notes card uses this lightweight preview. Fill each cell so
+      // The Articles card uses this lightweight preview. Fill each cell so
       // it reads as an active sheet rather than an isolated wire diagram.
       for (let y = 0; y < rows - 1; y++) {
         for (let x = 0; x < cols - 1; x++) {
