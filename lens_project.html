@@ -178,6 +178,70 @@
             balance of these effects.
           </p>
 
+          <section class="simulation lens-simulation" aria-labelledby="lens-sim-title">
+            <div class="simulation-heading">
+              <div>
+                <span class="kicker">Interactive simulation / Reduced-order model</span>
+                <h2 id="lens-sim-title">Shape the liquid lens</h2>
+              </div>
+              <button class="button" id="lensPlay" type="button" aria-pressed="false">Animate field</button>
+            </div>
+            <p>
+              Change the field and aperture to see how magnetic pressure competes with surface tension. The orange
+              curve is the modeled liquid surface; the rays show the corresponding thin-lens focal direction.
+            </p>
+            <canvas id="liquidLensCanvas" width="900" height="500" role="img" aria-label="Interactive cross-section of a magnetically shaped liquid lens and refracted light rays"></canvas>
+            <div class="sim-controls">
+              <div class="sim-control">
+                <label class="control-label" for="lensMaterial">Solution</label>
+                <select id="lensMaterial">
+                  <option value="1">Mn²⁺ baseline</option>
+                  <option value="1.8" selected>Gd³⁺ · 1.8× response</option>
+                </select>
+              </div>
+              <div class="sim-control">
+                <label class="control-label" for="lensField">Peak field <output id="lensFieldOut">0.45 T</output></label>
+                <input id="lensField" type="range" min="0.05" max="0.8" value="0.45" step="0.01" />
+              </div>
+              <div class="sim-control">
+                <label class="control-label" for="lensGradient">Field-energy difference <output id="lensGradientOut">8%</output></label>
+                <input id="lensGradient" type="range" min="1" max="18" value="8" step="1" />
+              </div>
+              <div class="sim-control">
+                <label class="control-label" for="lensAperture">Aperture radius <output id="lensApertureOut">12 mm</output></label>
+                <input id="lensAperture" type="range" min="5" max="20" value="12" step="1" />
+              </div>
+            </div>
+            <div class="sim-readouts">
+              <div><strong id="lensSagReadout">—</strong><span>center rise h₀</span></div>
+              <div><strong id="lensRadiusReadout">—</strong><span>curvature radius R</span></div>
+              <div><strong id="lensFocusReadout">—</strong><span>estimated focal length f</span></div>
+            </div>
+            <p class="model-note">
+              Assumptions: pinned circular boundary, small surface slope, linear magnetic susceptibility, uniform
+              surface tension γ = 0.072 N/m, refractive index n = 1.34, and an illustrative Mn-solution susceptibility
+              χ = 1.0 × 10⁻⁴. Values explain trends; a physical build must use measured concentration, field mapping,
+              gravity, and contact angle.
+            </p>
+          </section>
+
+          <h3>The model behind the simulation</h3>
+          <p>
+            The simulator treats the magnetic field-energy difference across the active region as an effective
+            pressure, <span class="math">Δp<sub>m</sub> = χΔ(B²)/(2μ<sub>0</sub>)</span>. For a shallow,
+            axisymmetric surface pinned at radius <span class="math">a</span>, the linearized Young–Laplace equation
+            gives a parabolic profile:
+          </p>
+          <div class="equation-block">
+            <div><span class="math">h(r) = Δp<sub>m</sub>(a² − r²)/(4γ)</span></div>
+            <div><span class="math">R ≈ 2γ/Δp<sub>m</sub>, &nbsp; f ≈ R/(n − 1)</span></div>
+          </div>
+          <p>
+            The first expression predicts the center rise and surface profile; the second estimates curvature and
+            focal length for a thin plano-convex lens. When the predicted slope is no longer small, the simulation
+            warns that a nonlinear surface calculation is required.
+          </p>
+
           <h2>Back-of-Envelope Magnetic Force</h2>
           <p>
             Assume the liquid sits in a spherical volume and four identical magnetic points are equally spaced around
@@ -326,5 +390,6 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/liquid-lens-sim.js"></script>
   </body>
 </html>

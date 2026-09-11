@@ -234,6 +234,29 @@ button.primary { background: var(--signal); box-shadow: none; color: #fff !impor
 .sim-readouts span { color: rgba(255,255,255,.55); font-size: .72rem; }
 .model-note { border-top: 1px solid rgba(255,255,255,.12); font-size: .78rem; margin: 1.25rem 0 0; padding-top: 1rem; }
 
+.lens-simulation { margin: 2.5rem 0 3.5rem; }
+.lens-simulation .sim-controls { grid-template-columns: repeat(2, 1fr); }
+.lens-simulation select {
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.22);
+  color: #eef8f1;
+}
+.lens-simulation select option { color: var(--ink); }
+.lens-simulation .sim-readouts { grid-template-columns: repeat(3, 1fr); }
+.simulation-heading {
+  align-items: end;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-between;
+}
+.simulation-heading .button { flex: 0 0 auto; }
+
+@media screen and (max-width: 736px) {
+  .lens-simulation .sim-controls,
+  .lens-simulation .sim-readouts { grid-template-columns: 1fr; }
+  .simulation-heading { align-items: flex-start; flex-direction: column; gap: .25rem; }
+}
+
 .callout {
   background: #f0e7d8;
   border-radius: 16px;
