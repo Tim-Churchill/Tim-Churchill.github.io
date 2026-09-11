@@ -29,25 +29,36 @@
 
             <div class="callout"><strong>Scope.</strong> This is a design study and interactive reduced-order model, not a claim of a completed physical prototype. “Composite” here means a line or bundle engineered from more than one constituent—for example, a high-modulus braided load path with a frictional or rate-sensitive coating—and a mesh that combines active edges with passive elastic members.</div>
 
-            <h2>1. The geometry of one actuator</h2>
-            <p>Start with the cleanest idealization: two or more inextensible lines twist into a helix of constant effective radius <em>r</em>. Let <em>s</em> be the line length between terminations, <em>θ</em> the motor rotation in radians, and <em>x</em> the axial end-to-end distance. Unwrapping the helix gives a right triangle:</p>
-            <div class="equation" aria-label="Axial length equals square root of line length squared minus effective radius times angle squared">s² = x² + (rθ)² &nbsp;→&nbsp; x(θ) = √[s² − (rθ)²]</div>
-            <p>The predicted contraction is therefore</p>
-            <div class="equation">δ(θ) = s − x(θ), &nbsp;&nbsp; ε(θ) = δ/s, &nbsp;&nbsp; tan β = rθ/x</div>
-            <p>Here <em>β</em> is the helix angle measured from the actuator axis. The equation is dimensionally consistent: <em>rθ</em> is a length because radians are dimensionless. It also exposes the model’s domain, <em>|rθ| &lt; s</em>. The apparent singularity at <em>rθ = s</em> is a warning that the ideal helix model has been pushed far beyond the ordinary twist regime—not a promise of 100% contraction.</p>
+            <h2>1. Two strings, resolved in three dimensions</h2>
+            <p>For two identical circular strings, each centerline follows a helix of radius <em>R</em> and the two curves are separated by a phase of π. The string itself has a finite cross-sectional radius <em>ρ</em>. Keeping those two radii separate matters: setting <em>R = ρ</em> at high helix angles makes ideal circular tubes interpenetrate.</p>
+            <div class="equation" aria-label="Parametric centerlines for two strings in a double helix">c₁(u) = [R cos(θu), R sin(θu), xu] &nbsp;&nbsp; c₂(u) = [R cos(θu+π), R sin(θu+π), xu]</div>
+            <p>This simulator solves the hard-contact geometry numerically. For every candidate axial length it finds the smallest <em>R ≥ ρ</em> whose two infinite helical centerlines never come closer than one current diameter:</p>
+            <div class="equation">min<sub>Δ</sub> √{2R²[1 + cos(Δ)] + (xΔ/θ)²} = 2ρ</div>
+            <p>It also allows elastic stretch. With unloaded strand length <em>L₀</em>, area <em>A</em>, Young’s modulus <em>E</em>, strand tension <em>T</em>, and axial load <em>F</em>, it solves the coupled equilibrium at every frame:</p>
+            <div class="equation">L = √[x² + (Rθ)²], &nbsp; ε = (L − L₀)/L₀, &nbsp; T = EAε, &nbsp; 2T cos α = F</div>
+            <p>The tube radius contracts through a first-order Poisson model, <em>ρ = ρ₀(1 − νε)</em>. Once equilibrium is found, the ideal motor torque is <em>τ = FR tan α</em>, where <em>tan α = Rθ/x</em>. This is the quasistatic, pre-overtwist regime: it includes axial elasticity, changing diameter, and non-penetrating 3D contact geometry, but deliberately stops short of pretending that an uncalibrated browser model can predict friction, braid rearrangement, local crushing, or post-buckling coils.</p>
 
-            <section class="simulation" aria-labelledby="single-sim-title">
-              <span class="kicker">Simulation 01 / Ideal helix</span>
-              <h3 id="single-sim-title">Twist one line bundle</h3>
-              <p>Adjust the geometry. The drawing and values use the equations above; the control is capped before the singular limit.</p>
-              <canvas id="actuatorCanvas" width="900" height="440" role="img" aria-label="Animated geometric model of two lines twisting into a helix"></canvas>
-              <div class="sim-controls">
-                <div class="sim-control"><label class="control-label" for="turns">Motor turns <output id="turnsOut">8.0</output></label><input id="turns" type="range" min="0" max="18" value="8" step="0.1" /></div>
-                <div class="sim-control"><label class="control-label" for="lineLength">Line length <output id="lineLengthOut">240 mm</output></label><input id="lineLength" type="range" min="160" max="320" value="240" step="5" /></div>
-                <div class="sim-control"><label class="control-label" for="radius">Effective radius <output id="radiusOut">1.2 mm</output></label><input id="radius" type="range" min="0.5" max="2.5" value="1.2" step="0.1" /></div>
+            <section class="simulation tsa-3d" aria-labelledby="single-sim-title">
+              <div class="simulation-heading">
+                <div><span class="kicker">Simulation 01 / Two-strand mechanics</span><h3 id="single-sim-title">Orbitable 3D double helix</h3></div>
+                <div class="sim-actions"><button type="button" class="button" id="tsaAnimate" aria-pressed="false">Animate twist</button><button type="button" class="button" id="tsaScale" aria-pressed="true">Radial detail ×4</button><button type="button" class="button" id="tsaResetView">Reset view</button></div>
               </div>
-              <div class="sim-readouts"><div><strong id="lengthReadout">—</strong><span>axial length x</span></div><div><strong id="contractionReadout">—</strong><span>contraction δ</span></div><div><strong id="angleReadout">—</strong><span>helix angle β</span></div></div>
-              <p class="model-note">Model boundary: constant radius, inextensible strands, no overtwist, no strand compression, no termination length, and no load-dependent radius.</p>
+              <p>Drag to orbit, scroll to zoom, and change the physical parameters. Each colored surface is a finite-diameter tube built around its solved 3D centerline.</p>
+              <canvas id="tsa3dCanvas" width="1100" height="700" role="img" aria-label="Interactive three-dimensional model of two finite-diameter strings wrapping into a double helix"></canvas>
+              <div class="sim-controls sim-controls-3d">
+                <div class="sim-control"><label class="control-label" for="tsaTurns">Motor turns <output id="tsaTurnsOut">24.0</output></label><input id="tsaTurns" type="range" min="0" max="55" value="24" step="0.1" /></div>
+                <div class="sim-control"><label class="control-label" for="tsaLength">Free length <output id="tsaLengthOut">240 mm</output></label><input id="tsaLength" type="range" min="120" max="400" value="240" step="5" /></div>
+                <div class="sim-control"><label class="control-label" for="tsaDiameter">String diameter <output id="tsaDiameterOut">1.20 mm</output></label><input id="tsaDiameter" type="range" min="0.4" max="2.5" value="1.2" step="0.05" /></div>
+                <div class="sim-control"><label class="control-label" for="tsaLoad">Axial load <output id="tsaLoadOut">20 N</output></label><input id="tsaLoad" type="range" min="1" max="80" value="20" step="1" /></div>
+                <div class="sim-control"><label class="control-label" for="tsaModulus">Axial modulus <output id="tsaModulusOut">2.0 GPa</output></label><input id="tsaModulus" type="range" min="0.5" max="20" value="2" step="0.1" /></div>
+                <div class="sim-control"><label class="control-label" for="tsaPoisson">Poisson ratio <output id="tsaPoissonOut">0.35</output></label><input id="tsaPoisson" type="range" min="0.2" max="0.49" value="0.35" step="0.01" /></div>
+              </div>
+              <div class="sim-readouts physics-readouts" aria-live="polite">
+                <div><strong id="tsaLengthReadout">—</strong><span>axial length x</span></div><div><strong id="tsaContractionReadout">—</strong><span>loaded contraction</span></div><div><strong id="tsaAngleReadout">—</strong><span>helix angle α</span></div>
+                <div><strong id="tsaTensionReadout">—</strong><span>tension per string</span></div><div><strong id="tsaTorqueReadout">—</strong><span>ideal motor torque</span></div><div><strong id="tsaPitchReadout">—</strong><span>axial pitch / turn</span></div>
+              </div>
+              <div class="tsa-state" id="tsaStatus">Solving two-string equilibrium…</div>
+              <p class="model-note">The geometry enforces hard non-penetration for two symmetric, uniform circular tubes. The mechanics use linear axial elasticity and Poisson contraction. Orange warnings identify strain or pitch conditions where the phase-I assumptions are no longer physically reliable.</p>
             </section>
 
             <h2>2. Where the “composite” earns its place</h2>
@@ -108,6 +119,6 @@
       <footer id="footer"><section class="split contact"><section><h3>Continue the conversation</h3><p><a href="mailto:timothy.churchillr@gmail.com">timothy.churchillr@gmail.com</a></p></section><section><h3>More work</h3><p><a href="robotic_hand_project.html">Adaptive robotic hand →</a></p></section><section><h3>Code</h3><p><a href="https://github.com/Tim-Churchill">GitHub →</a></p></section></section></footer>
       <div id="copyright"><ul><li>&copy; 2026 Timothy Churchill</li><li>Original framework: <a href="https://html5up.net">HTML5 UP</a></li></ul></div>
     </div>
-    <script src="assets/js/jquery.min.js"></script><script src="assets/js/jquery.scrollex.min.js"></script><script src="assets/js/jquery.scrolly.min.js"></script><script src="assets/js/browser.min.js"></script><script src="assets/js/breakpoints.min.js"></script><script src="assets/js/util.js"></script><script src="assets/js/main.js"></script><script src="assets/js/actuator-sim.js"></script>
+    <script src="assets/js/jquery.min.js"></script><script src="assets/js/jquery.scrollex.min.js"></script><script src="assets/js/jquery.scrolly.min.js"></script><script src="assets/js/browser.min.js"></script><script src="assets/js/breakpoints.min.js"></script><script src="assets/js/util.js"></script><script src="assets/js/main.js"></script><script src="assets/js/actuator-sim.js"></script><script src="assets/js/two-string-3d.js"></script>
   </body>
 </html>

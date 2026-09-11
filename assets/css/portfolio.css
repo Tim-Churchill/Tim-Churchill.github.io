@@ -251,10 +251,37 @@ button.primary { background: var(--signal); box-shadow: none; color: #fff !impor
 }
 .simulation-heading .button { flex: 0 0 auto; }
 
+.tsa-3d { margin-left: min(-7vw, -3rem); margin-right: min(-7vw, -3rem); }
+.tsa-3d canvas { cursor: grab; touch-action: none; }
+.tsa-3d canvas:active { cursor: grabbing; }
+.tsa-3d .simulation-heading { align-items: center; }
+.sim-actions { display: flex; flex-wrap: wrap; gap: .65rem; }
+.tsa-3d .sim-actions .button {
+  border-color: rgba(184,237,203,.5);
+  color: #eef8f1 !important;
+}
+.tsa-3d .sim-actions .button:hover { border-color: var(--signal); color: #fff !important; }
+.tsa-3d .sim-controls-3d { grid-template-columns: repeat(3, 1fr); }
+.tsa-3d .physics-readouts { grid-template-columns: repeat(3, 1fr); }
+.tsa-state {
+  border: 1px solid rgba(184,237,203,.22);
+  border-radius: 10px;
+  color: var(--mint);
+  font-family: "DM Mono", monospace;
+  font-size: .75rem;
+  margin-top: 1rem;
+  padding: .75rem 1rem;
+}
+.tsa-state.warning { border-color: rgba(237,106,59,.6); color: #ff9d78; }
+
 @media screen and (max-width: 736px) {
   .lens-simulation .sim-controls,
   .lens-simulation .sim-readouts { grid-template-columns: 1fr; }
   .simulation-heading { align-items: flex-start; flex-direction: column; gap: .25rem; }
+  .equation { font-size: .76rem; padding: 1rem; }
+  .tsa-3d { margin-left: 0; margin-right: 0; }
+  .tsa-3d .sim-controls-3d,
+  .tsa-3d .physics-readouts { grid-template-columns: 1fr; }
 }
 
 .callout {
