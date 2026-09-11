@@ -45,11 +45,6 @@ h3 { font-size: 1.2rem; letter-spacing: -0.02em; }
 a { border-bottom-color: rgba(23, 32, 29, 0.35); }
 a:hover { color: var(--signal) !important; }
 
-#wrapper > .bg {
-  background-image: linear-gradient(120deg, rgba(9, 31, 25, 0.92), rgba(23, 60, 50, 0.66)), url("../photos/profile.jpg");
-  background-position: center, center 36%;
-}
-
 #intro {
   align-items: flex-start;
   max-width: 76rem;
@@ -145,8 +140,8 @@ a:hover { color: var(--signal) !important; }
 video { overflow: hidden; border-radius: 14px; }
 
 .image img { object-fit: cover; }
-.image.fit img { aspect-ratio: 4 / 3; }
-.image.main img { max-height: 720px; object-fit: cover; }
+.project-card .image.fit img { aspect-ratio: 4 / 3; }
+.image.main img { height: auto; max-height: none; object-fit: contain; }
 
 a.image img { transition: transform .5s cubic-bezier(.2,.8,.2,1), filter .3s ease; }
 a.image:hover img { transform: scale(1.025); filter: saturate(1.08); }
@@ -172,11 +167,21 @@ button.primary { background: var(--signal); box-shadow: none; color: #fff !impor
 }
 
 .home-intro-grid .portrait {
+  display: block;
   margin: 0;
-  transform: rotate(1.4deg);
+  min-width: 0;
+  transform: none;
+  width: 100%;
 }
 
-.home-intro-grid .portrait img { aspect-ratio: 4 / 5; object-position: 78% center; }
+.home-intro-grid .portrait img {
+  aspect-ratio: 4 / 3;
+  display: block;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
 
 .fact-row {
   display: grid;
@@ -200,6 +205,29 @@ button.primary { background: var(--signal); box-shadow: none; color: #fff !impor
 .article-body h2 { margin-top: 3.8rem; }
 .article-body h3 { margin-top: 2.4rem; }
 .article-body p, .article-body li { color: #34413c; }
+
+.article-summary,
+.model-levels {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 2.5rem 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--line);
+}
+.article-summary > div,
+.model-levels > div { background: var(--paper-bright); padding: 1.25rem; }
+.article-summary span { color: var(--signal); display: block; font-family: "DM Mono", monospace; font-size: .68rem; margin-bottom: .55rem; }
+.article-summary strong,
+.model-levels strong { color: var(--pine); display: block; font-family: "Space Grotesk", sans-serif; margin-bottom: .45rem; }
+.article-summary p,
+.model-levels p { font-size: .78rem; line-height: 1.55; margin: 0; }
+
+.design-table { font-size: .78rem; }
+.design-table th { color: var(--pine); font-family: "DM Mono", monospace; font-size: .66rem; letter-spacing: .06em; text-transform: uppercase; }
+.design-table td { vertical-align: top; }
 
 .equation {
   background: #eef3ed;
@@ -242,6 +270,12 @@ button.primary { background: var(--signal); box-shadow: none; color: #fff !impor
   color: #eef8f1;
 }
 .lens-simulation select option { color: var(--ink); }
+.mesh-3d select {
+  background: rgba(255,255,255,.06);
+  border-color: rgba(255,255,255,.42);
+  color: #eef8f1;
+}
+.mesh-3d select option { color: var(--ink); }
 .lens-simulation .sim-readouts { grid-template-columns: repeat(3, 1fr); }
 .simulation-heading {
   align-items: end;
@@ -251,18 +285,26 @@ button.primary { background: var(--signal); box-shadow: none; color: #fff !impor
 }
 .simulation-heading .button { flex: 0 0 auto; }
 
-.tsa-3d { margin-left: min(-7vw, -3rem); margin-right: min(-7vw, -3rem); }
+.tsa-3d,
+.mesh-3d { margin-left: min(-7vw, -3rem); margin-right: min(-7vw, -3rem); }
 .tsa-3d canvas { cursor: grab; touch-action: none; }
 .tsa-3d canvas:active { cursor: grabbing; }
+.mesh-3d canvas { cursor: grab; touch-action: none; }
+.mesh-3d canvas:active { cursor: grabbing; }
 .tsa-3d .simulation-heading { align-items: center; }
+.mesh-3d .simulation-heading { align-items: center; }
 .sim-actions { display: flex; flex-wrap: wrap; gap: .65rem; }
-.tsa-3d .sim-actions .button {
+.tsa-3d .sim-actions .button,
+.mesh-3d .sim-actions .button {
   border-color: rgba(184,237,203,.5);
   color: #eef8f1 !important;
 }
-.tsa-3d .sim-actions .button:hover { border-color: var(--signal); color: #fff !important; }
+.tsa-3d .sim-actions .button:hover,
+.mesh-3d .sim-actions .button:hover { border-color: var(--signal); color: #fff !important; }
 .tsa-3d .sim-controls-3d { grid-template-columns: repeat(3, 1fr); }
 .tsa-3d .physics-readouts { grid-template-columns: repeat(3, 1fr); }
+.mesh-3d .mesh-controls,
+.mesh-3d .mesh-readouts { grid-template-columns: repeat(4, 1fr); }
 .tsa-state {
   border: 1px solid rgba(184,237,203,.22);
   border-radius: 10px;
@@ -279,9 +321,14 @@ button.primary { background: var(--signal); box-shadow: none; color: #fff !impor
   .lens-simulation .sim-readouts { grid-template-columns: 1fr; }
   .simulation-heading { align-items: flex-start; flex-direction: column; gap: .25rem; }
   .equation { font-size: .76rem; padding: 1rem; }
-  .tsa-3d { margin-left: 0; margin-right: 0; }
+  .article-summary,
+  .model-levels { grid-template-columns: 1fr; }
+  .tsa-3d,
+  .mesh-3d { margin-left: 0; margin-right: 0; }
   .tsa-3d .sim-controls-3d,
-  .tsa-3d .physics-readouts { grid-template-columns: 1fr; }
+  .tsa-3d .physics-readouts,
+  .mesh-3d .mesh-controls,
+  .mesh-3d .mesh-readouts { grid-template-columns: 1fr; }
 }
 
 .callout {

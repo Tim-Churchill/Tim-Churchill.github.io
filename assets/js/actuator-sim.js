@@ -218,8 +218,23 @@
       ctx.beginPath();
       ring.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
       ctx.closePath();
-      ctx.fillStyle = "rgba(184,237,203,.035)";
+      ctx.fillStyle = "rgba(184,237,203,.08)";
       ctx.fill();
+
+      // The Field Notes card uses this lightweight preview. Fill each cell so
+      // it reads as an active sheet rather than an isolated wire diagram.
+      for (let y = 0; y < rows - 1; y++) {
+        for (let x = 0; x < cols - 1; x++) {
+          const cell = [nodes[index(x, y)], nodes[index(x + 1, y)], nodes[index(x + 1, y + 1)], nodes[index(x, y + 1)]];
+          const center = 0.5 + 0.28 * Math.sin(previewPhase);
+          const activity = clamp(1 - Math.abs((x + 0.5) / (cols - 1) - center) * 5.5, 0, 1);
+          ctx.beginPath();
+          cell.forEach((p, i) => i ? ctx.lineTo(p.x, p.y) : ctx.moveTo(p.x, p.y));
+          ctx.closePath();
+          ctx.fillStyle = activity > 0.02 ? `rgba(237,106,59,${0.10 + 0.3 * activity})` : "rgba(184,237,203,.045)";
+          ctx.fill();
+        }
+      }
 
       edges.filter((e) => e.diagonal).forEach((edge) => line(edge, "rgba(184,237,203,.10)", 1));
       edges.filter((e) => !e.diagonal && e.active < .03).forEach((edge) => line(edge, "rgba(215,232,221,.42)", 2));
@@ -274,6 +289,5 @@
   }
 
   drawActuator();
-  meshSystem(byId("meshCanvas"), true);
   meshSystem(byId("meshPreview"), false);
 })();
