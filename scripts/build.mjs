@@ -20,6 +20,16 @@ for (const directory of ["assets", "media"]) {
   await cp(new URL(directory + "/", root), new URL(directory + "/", client), { recursive: true });
 }
 
+async function removeQuickTimeFiles(directory) {
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const target = join(directory, entry.name);
+    if (entry.isDirectory()) await removeQuickTimeFiles(target);
+    else if (/\.mov$/i.test(entry.name)) await rm(target);
+  }
+}
+
+await removeQuickTimeFiles(client.pathname);
+
 const worker = `export default {
   async fetch(request, env) {
     return env.ASSETS.fetch(request);
