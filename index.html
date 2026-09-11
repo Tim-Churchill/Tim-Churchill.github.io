@@ -6,14 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Timothy Churchill is a Colorado School of Mines graduate building intelligent machines across computer science, robotics, controls, mechanics, and simulation." />
     <meta name="theme-color" content="#183c32" />
+    <meta property="og:title" content="Timothy Churchill — Robotics &amp; Intelligent Systems" />
+    <meta property="og:description" content="Colorado School of Mines graduate building intelligent machines across robotics, controls, mechanics, and simulation." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tim-churchill.github.io/" />
+    <meta property="og:image" content="https://tim-churchill.github.io/assets/photos/profile.jpg" />
+    <link rel="canonical" href="https://tim-churchill.github.io/" />
     <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/portfolio.css?v=20260910-2" />
+    <link rel="stylesheet" href="assets/css/portfolio.css?v=20260910-5" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
   </head>
   <body class="is-preload">
+    <a class="skip-link" href="#main">Skip to content</a>
     <div id="wrapper" class="fade-in">
       <div id="intro">
-        <span class="eyebrow">Robotics · Controls · Physical Computing</span>
+        <span class="eyebrow">Colorado School of Mines graduate · Robotics + controls</span>
         <h1>Ideas into machinery.</h1>
         <p>I build at the seam between software and the physical world—where geometry, control, and careful experiments turn difficult systems into working ones.</p>
         <ul class="actions">
@@ -56,35 +63,50 @@
                 <li><a href="blog.html" class="button">Read field notes</a></li>
               </ul>
             </div>
-            <figure class="image portrait"><img src="assets/photos/profile.jpg" alt="Timothy Churchill on a rocky winter hike" /></figure>
+            <figure class="image portrait"><img src="assets/photos/profile.jpg" width="3088" height="2320" fetchpriority="high" decoding="async" alt="Timothy Churchill on a rocky winter hike" /></figure>
           </div>
         </article>
 
-        <section class="posts" id="work" aria-label="Selected projects">
+        <header class="work-heading" id="work">
+          <span class="kicker">Selected work / Built, tested, explained</span>
+          <h2>Four systems, one way of working.</h2>
+          <p>Each case study follows a real engineering question through models, prototypes, and the evidence that changed the next iteration.</p>
+        </header>
+
+        <section class="posts" aria-label="Selected projects">
           <article class="project-card">
             <header><span class="date">01 / Learning Systems</span><h2><a href="knowledge_map.html">The Knowledge Map</a></h2></header>
-            <a href="knowledge_map.html" class="image fit"><img src="assets/photos/mindmap/NewGraph.png" alt="Knowledge Map interface showing a network of concepts and mastery levels" /></a>
+            <a href="knowledge_map.html" class="image fit"><img src="assets/photos/mindmap/NewGraph.png" width="1658" height="1470" loading="lazy" decoding="async" alt="Knowledge Map interface showing a network of concepts and mastery levels" /></a>
             <p>A learning system that turns everyday activity into a living graph of concepts—making intellectual growth visible, navigable, and cumulative.</p>
+            <ul class="project-tags" aria-label="Project areas"><li>Knowledge graphs</li><li>Product design</li><li>Learning systems</li></ul>
             <ul class="actions special"><li><a href="knowledge_map.html" class="button">View case study</a></li></ul>
           </article>
           <article class="project-card">
             <header><span class="date">02 / Experimental Optics</span><h2><a href="lens_project.html">Paramagnetic Liquid Lens</a></h2></header>
-            <a href="lens_project.html" class="image fit"><img src="assets/photos/liquid_lens_base.png" alt="CAD rendering of the paramagnetic liquid lens housing" /></a>
+            <a href="lens_project.html" class="image fit"><img src="assets/photos/liquid_lens_base.png" width="1450" height="988" loading="lazy" decoding="async" alt="CAD rendering of the paramagnetic liquid lens housing" /></a>
             <p>A field-shaped optical element exploring whether focus can change by reshaping a liquid instead of translating a glass lens.</p>
+            <ul class="project-tags" aria-label="Project areas"><li>Magnetostatics</li><li>Fluid surfaces</li><li>Optics simulation</li></ul>
             <ul class="actions special"><li><a href="lens_project.html" class="button">View experiment</a></li></ul>
           </article>
           <article class="project-card">
             <header><span class="date">03 / Dexterous Mechanisms</span><h2><a href="robotic_hand_project.html">Adaptive Robotic Hand</a></h2></header>
-            <a href="robotic_hand_project.html" class="image fit"><img src="assets/photos/prototype1.png" alt="Assembled robotic hand prototype on a workbench" /></a>
+            <a href="robotic_hand_project.html" class="image fit"><img src="assets/photos/prototype1.png" width="780" height="824" loading="lazy" decoding="async" alt="Assembled robotic hand prototype on a workbench" /></a>
             <p>Three generations of low-cost hand prototypes investigating rolling-contact joints, tendon routing, compliance, and buildability.</p>
+            <ul class="project-tags" aria-label="Project areas"><li>Mechanism design</li><li>Tendon routing</li><li>Rapid prototyping</li></ul>
             <ul class="actions special"><li><a href="robotic_hand_project.html" class="button">View build log</a></li></ul>
           </article>
           <article class="project-card">
             <header><span class="date">04 / Autonomous Systems</span><h2><a href="drone_control.html">Drone Path Planning</a></h2></header>
-            <a href="drone_control.html" class="image fit"><img src="assets/photos/crazy_flie_drone_image.jpeg" alt="Crazyflie quadrotor with green propellers in the lab" /></a>
+            <a href="drone_control.html" class="image fit"><img src="assets/photos/crazy_flie_drone_image.jpeg" width="4032" height="3024" loading="lazy" decoding="async" alt="Crazyflie quadrotor with green propellers in the lab" /></a>
             <p>Work at NAPPLab connecting planning, ROS, motion capture, and flight hardware into a repeatable autonomy pipeline.</p>
+            <ul class="project-tags" aria-label="Project areas"><li>ROS</li><li>OptiTrack</li><li>Motion planning</li></ul>
             <ul class="actions special"><li><a href="drone_control.html" class="button">View project</a></li></ul>
           </article>
+        </section>
+
+        <section class="latest-note" aria-labelledby="latest-note-title">
+          <div><span class="kicker">Latest field note / Interactive mechanics</span><h2 id="latest-note-title">What happens when a twisted string becomes a material?</h2></div>
+          <div><p>A new mechanics-first article resolves two finite-diameter strands in 3D, marks the boundary of ordinary twist, and scales the idea into a programmable solid mesh.</p><a class="button primary" href="composite-twisted-line-meshes.html">Read &amp; run the simulations</a></div>
         </section>
       </main>
 

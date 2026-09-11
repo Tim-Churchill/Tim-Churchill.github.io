@@ -15,7 +15,7 @@
   const sheetWidth = 300;
   const sheetHeight = 190;
   const thickness = 5;
-  const camera = { azimuth: 0.68, elevation: 0.48, zoom: 1 };
+  const camera = { azimuth: 0.68, elevation: 0.48, zoom: 1.25 };
   let dragging = false;
   let pointer = { x: 0, y: 0 };
   let animating = false;
@@ -307,6 +307,7 @@
     $("meshEnergyReadout").textContent = (100 * lastMetrics.rmsStrain).toFixed(2) + "%";
     $("meshAreaReadout").textContent = (100 * lastMetrics.areaChange).toFixed(1) + "%";
     $("meshHeightReadout").textContent = lastMetrics.relief.toFixed(1) + " mm";
+    canvas.setAttribute("aria-label", patternInput.options[patternInput.selectedIndex].text + " active mesh at " + contractionInput.value + " percent commanded contraction, with " + lastMetrics.relief.toFixed(1) + " millimeters peak-to-peak relief.");
   }
 
   function render(pulse) {
@@ -335,11 +336,23 @@
     camera.zoom = clamp(camera.zoom * Math.exp(-event.deltaY * 0.001), 0.7, 2.15);
     draw();
   }, { passive: false });
+  canvas.addEventListener("keydown", (event) => {
+    const orbitStep = 0.12;
+    if (event.key === "ArrowLeft") camera.azimuth -= orbitStep;
+    else if (event.key === "ArrowRight") camera.azimuth += orbitStep;
+    else if (event.key === "ArrowUp") camera.elevation = clamp(camera.elevation + orbitStep, -1.2, 1.2);
+    else if (event.key === "ArrowDown") camera.elevation = clamp(camera.elevation - orbitStep, -1.2, 1.2);
+    else if (event.key === "+" || event.key === "=") camera.zoom = clamp(camera.zoom * 1.12, 0.7, 2.15);
+    else if (event.key === "-" || event.key === "_") camera.zoom = clamp(camera.zoom / 1.12, 0.7, 2.15);
+    else return;
+    event.preventDefault();
+    draw();
+  });
 
   $("meshResetView").addEventListener("click", () => {
     camera.azimuth = 0.68;
     camera.elevation = 0.48;
-    camera.zoom = 1;
+    camera.zoom = 1.25;
     draw();
   });
 

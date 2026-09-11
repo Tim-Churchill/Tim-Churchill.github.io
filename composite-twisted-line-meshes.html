@@ -5,10 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="An interactive, mechanics-first exploration of composite twisted-line actuators and shape-changing actuator meshes." />
-    <link rel="stylesheet" href="assets/css/main.css" /><link rel="stylesheet" href="assets/css/portfolio.css?v=20260910-2" />
+    <link rel="stylesheet" href="assets/css/main.css" /><link rel="stylesheet" href="assets/css/portfolio.css?v=20260910-5" />
     <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
   </head>
   <body class="is-preload">
+    <a class="skip-link" href="#main">Skip to content</a>
     <div id="wrapper">
       <header id="header"><a href="blog.html" class="logo">Back to Field Notes</a></header>
       <nav id="nav" aria-label="Primary navigation">
@@ -57,8 +58,8 @@
                 <div><span class="kicker">Simulation 01 / Two-strand mechanics</span><h3 id="single-sim-title">Orbitable 3D double helix</h3></div>
                 <div class="sim-actions"><button type="button" class="button" id="tsaAnimate" aria-pressed="false">Animate twist</button><button type="button" class="button" id="tsaScale" aria-pressed="true">Radial detail ×4</button><button type="button" class="button" id="tsaResetView">Reset view</button></div>
               </div>
-              <p>Drag to orbit, scroll to zoom, and change the physical parameters. Each colored surface is a finite-diameter tube built around its solved 3D centerline.</p>
-              <canvas id="tsa3dCanvas" width="1100" height="700" role="img" aria-label="Interactive three-dimensional model of two finite-diameter strings wrapping into a double helix"></canvas>
+              <p id="tsa3dHelp">Drag to orbit, scroll to zoom, or focus the model and use the arrow and +/− keys. Each colored surface is a finite-diameter tube built around its solved 3D centerline.</p>
+              <canvas id="tsa3dCanvas" width="1100" height="700" role="img" tabindex="0" aria-describedby="tsa3dHelp tsaStatus" aria-label="Interactive three-dimensional model of two finite-diameter strings wrapping into a double helix"></canvas>
               <div class="sim-controls sim-controls-3d">
                 <div class="sim-control"><label class="control-label" for="tsaTurns">Motor turns <output id="tsaTurnsOut">24.0</output></label><input id="tsaTurns" type="range" min="0" max="55" value="24" step="0.1" /></div>
                 <div class="sim-control"><label class="control-label" for="tsaLength">Free length <output id="tsaLengthOut">240 mm</output></label><input id="tsaLength" type="range" min="120" max="400" value="240" step="5" /></div>
@@ -103,8 +104,8 @@
                 <div><span class="kicker">Simulation 02 / Active shell</span><h3 id="mesh-sim-title">Program a solid contractile mesh</h3></div>
                 <div class="sim-actions"><button type="button" class="button" id="meshAnimate" aria-pressed="false">Animate field</button><button type="button" class="button" id="meshResetView">Reset view</button></div>
               </div>
-              <p>Choose a rest-length field, then drag to orbit the filled shell. Orange regions carry more commanded contraction; yellow points are the four fixed anchors.</p>
-              <canvas id="meshCanvas" width="1100" height="680" role="img" aria-label="Orbitable solid triangulated active mesh with strain-colored faces and four fixed corner anchors"></canvas>
+              <p id="mesh3dHelp">Choose a rest-length field, then drag to orbit the filled shell or focus it and use the arrow and +/− keys. Orange regions carry more commanded contraction; yellow points are the four fixed anchors.</p>
+              <canvas id="meshCanvas" width="1100" height="680" role="img" tabindex="0" aria-describedby="mesh3dHelp" aria-label="Orbitable solid triangulated active mesh with strain-colored faces and four fixed corner anchors"></canvas>
               <div class="sim-controls mesh-controls">
                 <div class="sim-control"><label class="control-label" for="meshPattern">Activation field</label><select id="meshPattern"><option value="center">Center dome</option><option value="left">Left-side curl</option><option value="diagonal">Diagonal twist</option><option value="wave">Traveling wave</option></select></div>
                 <div class="sim-control"><label class="control-label" for="meshContraction">Active contraction <output id="meshContractionOut">14%</output></label><input id="meshContraction" type="range" min="0" max="24" value="14" step="1" /></div>
@@ -157,6 +158,6 @@
       <footer id="footer"><section class="split contact"><section><h3>Continue the conversation</h3><p><a href="mailto:timothy.churchillr@gmail.com">timothy.churchillr@gmail.com</a></p></section><section><h3>More work</h3><p><a href="robotic_hand_project.html">Adaptive robotic hand →</a></p></section><section><h3>Code</h3><p><a href="https://github.com/Tim-Churchill">GitHub →</a></p></section></section></footer>
       <div id="copyright"><ul><li>&copy; 2026 Timothy Churchill</li><li>Original framework: <a href="https://html5up.net">HTML5 UP</a></li></ul></div>
     </div>
-    <script src="assets/js/jquery.min.js"></script><script src="assets/js/jquery.scrollex.min.js"></script><script src="assets/js/jquery.scrolly.min.js"></script><script src="assets/js/browser.min.js"></script><script src="assets/js/breakpoints.min.js"></script><script src="assets/js/util.js"></script><script src="assets/js/main.js"></script><script src="assets/js/actuator-sim.js?v=20260910-2"></script><script src="assets/js/two-string-3d.js?v=20260910-2"></script><script src="assets/js/active-mesh-3d.js?v=20260910-2"></script>
+    <script src="assets/js/jquery.min.js"></script><script src="assets/js/jquery.scrollex.min.js"></script><script src="assets/js/jquery.scrolly.min.js"></script><script src="assets/js/browser.min.js"></script><script src="assets/js/breakpoints.min.js"></script><script src="assets/js/util.js"></script><script src="assets/js/main.js"></script><script src="assets/js/actuator-sim.js?v=20260910-5"></script><script src="assets/js/two-string-3d.js?v=20260910-5"></script><script src="assets/js/active-mesh-3d.js?v=20260910-5"></script>
   </body>
 </html>

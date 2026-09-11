@@ -10,7 +10,7 @@
     turns: $("tsaTurns"), length: $("tsaLength"), diameter: $("tsaDiameter"),
     load: $("tsaLoad"), modulus: $("tsaModulus"), poisson: $("tsaPoisson")
   };
-  const camera = { azimuth: 0.82, elevation: 0.32, zoom: 1 };
+  const camera = { azimuth: 0.82, elevation: 0.32, zoom: 1.25 };
   let radialDetail = true;
   let dragging = false;
   let pointer = { x: 0, y: 0 };
@@ -73,62 +73,123 @@
     const EA = E * A0;
 
     function stateAt(x) {
-      let strain = Math.max(0, (x - L0) / L0);
-      let tubeRadius = d0 * Math.max(0.5, 1 - nu * strain) / 2;
-      let helixRadius = tubeRadius;
-      let length = x;
-      let contactValid = true;
-      let contactDelta = 0;
-      for (let i = 0; i < 24; i++) {
-        tubeRadius = d0 * Math.max(0.5, 1 - nu * strain) / 2;
+      // Solve compatibility rather than repeatedly feeding the new strain back
+      // into the radius. That fixed-point iteration can hop between contact
+      // branches near the phase-I limit and invent isolated "stable" states.
+      function atStrain(strain) {
+        const tubeRadius = d0 * Math.max(0.5, 1 - nu * strain) / 2;
         const contact = contactCompatibleRadius(x, theta, tubeRadius);
-        helixRadius = contact.radius;
-        contactValid = contact.valid;
-        contactDelta = contact.contactDelta;
-        length = Math.hypot(x, helixRadius * theta);
-        strain = (length - L0) / L0;
+        const helixRadius = contact.radius;
+        const length = Math.hypot(x, helixRadius * theta);
+        return {
+          x, length, strain, tubeRadius, helixRadius,
+          contactValid: contact.valid,
+          contactDelta: contact.contactDelta,
+          compatibility: L0 * (1 + strain) - length
+        };
       }
-      const tension = Math.max(0, EA * strain);
+
+      const maxStrain = 3;
+      let strainLo = 0;
+      let loState = atStrain(strainLo);
+      const maxState = atStrain(maxStrain);
+
+      // Poisson contraction can make an initially impossible tube packing
+      // geometrically admissible. Find that boundary explicitly.
+      if (!loState.contactValid) {
+        if (!maxState.contactValid) {
+          const tension = EA * loState.strain;
+          return { ...loState, tension, residual: -F, stateValid: false };
+        }
+        let invalidStrain = 0;
+        let validStrain = maxStrain;
+        for (let i = 0; i < 60; i++) {
+          const mid = (invalidStrain + validStrain) / 2;
+          if (atStrain(mid).contactValid) validStrain = mid; else invalidStrain = mid;
+        }
+        strainLo = validStrain * (1 + 1e-10) + 1e-12;
+        loState = atStrain(strainLo);
+      }
+
+      // A taut string requires a zero of L0(1 + strain) - Lgeometry.
+      // Positive compatibility at the lowest admissible strain means the
+      // string would be slack; negative compatibility at maxStrain means the
+      // requested state lies outside the model's strain domain.
+      if (loState.compatibility > 0 || maxState.compatibility < 0) {
+        const representative = Math.abs(loState.compatibility) < Math.abs(maxState.compatibility) ? loState : maxState;
+        const tension = EA * representative.strain;
+        return { ...representative, tension, residual: -F, stateValid: false };
+      }
+
+      let strainHi = maxStrain;
+      for (let i = 0; i < 64; i++) {
+        const mid = (strainLo + strainHi) / 2;
+        const midState = atStrain(mid);
+        if (!midState.contactValid || midState.compatibility < 0) strainLo = mid;
+        else strainHi = mid;
+      }
+      const solved = atStrain((strainLo + strainHi) / 2);
+      const tension = EA * solved.strain;
+      const { length, helixRadius } = solved;
       const cosAlpha = x / Math.max(length, 1e-12);
-      return { x, length, strain, tubeRadius, helixRadius, tension, contactValid, contactDelta, residual: contactValid ? 2 * tension * cosAlpha - F : -F };
+      return { ...solved, tension, residual: 2 * tension * cosAlpha - F, stateValid: true };
     }
 
-    let lo = 1e-7;
+    const xFloor = 1e-7;
     let hi = L0 * (1 + F / Math.max(EA, 1) + 1) + Math.abs(theta * d0);
     let hiState = stateAt(hi);
-    while ((!hiState.contactValid || hiState.residual < 0) && hi < L0 * 128) {
+    while ((!hiState.stateValid || hiState.residual < 0) && hi < L0 * 128) {
       hi *= 1.5;
       hiState = stateAt(hi);
     }
 
-    // Phase-I contact geometry has a lower axial-length limit. Locate that
-    // boundary first so a discontinuity cannot be mistaken for a force root.
-    let lowerState = stateAt(lo);
-    if (!lowerState.contactValid) {
-      let invalid = lo;
-      let valid = hi;
-      for (let i = 0; i < 90; i++) {
-        const mid = (invalid + valid) / 2;
-        if (stateAt(mid).contactValid) valid = mid; else invalid = mid;
+    // Follow the physical tensile branch from large x downward. At extreme
+    // twist, mathematically separate high-strain contact branches can exist at
+    // tiny x; scanning from zero can accidentally select one of those instead.
+    let upperState = hiState;
+    let lowerState = hiState;
+    let invalidBelow = null;
+    let forceBracketFound = false;
+    const branchSamples = 180;
+    for (let i = 1; i <= branchSamples; i++) {
+      const x = hi - (hi - xFloor) * i / branchSamples;
+      const sample = stateAt(x);
+      if (!sample.stateValid) {
+        invalidBelow = sample;
+        let invalidX = x;
+        let validX = upperState.x;
+        for (let j = 0; j < 72; j++) {
+          const mid = (invalidX + validX) / 2;
+          if (stateAt(mid).stateValid) validX = mid; else invalidX = mid;
+        }
+        lowerState = stateAt(validX * (1 + 1e-11));
+        if (lowerState.stateValid && lowerState.residual <= 0) forceBracketFound = true;
+        break;
       }
-      lo = valid * (1 + 1e-9);
-      lowerState = stateAt(lo);
+      lowerState = sample;
+      if (sample.residual <= 0) {
+        forceBracketFound = true;
+        break;
+      }
+      upperState = sample;
     }
 
-    let equilibriumValid = hiState.contactValid && hiState.residual >= 0 && lowerState.residual <= 0;
+    let equilibriumValid = hiState.stateValid && hiState.residual >= 0 && forceBracketFound;
     let s;
     if (equilibriumValid) {
+      let lo = lowerState.x;
+      hi = upperState.x;
       for (let i = 0; i < 90; i++) {
         const mid = (lo + hi) / 2;
         const midState = stateAt(mid);
-        if (!midState.contactValid || midState.residual < 0) lo = mid; else hi = mid;
+        if (!midState.stateValid || midState.residual <= 0) lo = mid; else hi = mid;
       }
       s = stateAt((lo + hi) / 2);
       equilibriumValid = Math.abs(s.residual) <= Math.max(1e-6, F * 1e-7);
     } else {
       // Keep rendering the last uniform double-helix geometry, but do not
       // present its non-equilibrium force values as a physical prediction.
-      s = lowerState;
+      s = invalidBelow ? lowerState : hiState;
     }
     const alpha = Math.atan2(s.helixRadius * theta, s.x);
     const loadedStraight = L0 * (1 + F / (2 * EA));
@@ -302,6 +363,7 @@
       $("tsaTensionReadout").textContent = m.tension.toFixed(1) + " N · " + formatStress(m.stress);
       $("tsaTorqueReadout").textContent = (m.torque * 1000).toFixed(2) + " N·mm";
       $("tsaPitchReadout").textContent = Number.isFinite(m.pitch) ? (m.pitch * 1000).toFixed(2) + " mm" : "∞";
+      canvas.setAttribute("aria-label", "Two-string double helix at " + m.turns.toFixed(1) + " turns, " + (m.contraction * 1000).toFixed(1) + " millimeters loaded contraction, and " + (m.alpha * 180 / Math.PI).toFixed(1) + " degrees helix angle.");
     } else {
       $("tsaLengthReadout").textContent = "No phase-I solution";
       $("tsaContractionReadout").textContent = "overtwist required";
@@ -309,6 +371,7 @@
       $("tsaTensionReadout").textContent = "—";
       $("tsaTorqueReadout").textContent = "—";
       $("tsaPitchReadout").textContent = (m.pitch * 1000).toFixed(2) + " mm limit";
+      canvas.setAttribute("aria-label", "Two-string contact-limit geometry at " + m.turns.toFixed(1) + " turns. No uniform phase-one equilibrium exists for the selected parameters.");
     }
 
     const status = $("tsaStatus");
@@ -338,8 +401,20 @@
   canvas.addEventListener("wheel", (event) => {
     event.preventDefault(); camera.zoom = clamp(camera.zoom * Math.exp(-event.deltaY * .001), .65, 2.3); render();
   }, { passive: false });
+  canvas.addEventListener("keydown", (event) => {
+    const orbitStep = .12;
+    if (event.key === "ArrowLeft") camera.azimuth -= orbitStep;
+    else if (event.key === "ArrowRight") camera.azimuth += orbitStep;
+    else if (event.key === "ArrowUp") camera.elevation = clamp(camera.elevation + orbitStep, -1.25, 1.25);
+    else if (event.key === "ArrowDown") camera.elevation = clamp(camera.elevation - orbitStep, -1.25, 1.25);
+    else if (event.key === "+" || event.key === "=") camera.zoom = clamp(camera.zoom * 1.12, .65, 2.3);
+    else if (event.key === "-" || event.key === "_") camera.zoom = clamp(camera.zoom / 1.12, .65, 2.3);
+    else return;
+    event.preventDefault();
+    render();
+  });
 
-  $("tsaResetView").addEventListener("click", () => { camera.azimuth = .82; camera.elevation = .32; camera.zoom = 1; render(); });
+  $("tsaResetView").addEventListener("click", () => { camera.azimuth = .82; camera.elevation = .32; camera.zoom = 1.25; render(); });
   $("tsaScale").addEventListener("click", () => {
     radialDetail = !radialDetail;
     $("tsaScale").setAttribute("aria-pressed", String(radialDetail));
@@ -350,7 +425,7 @@
   function animate(timestamp) {
     if (!animating) return;
     if (!animationStart) animationStart = timestamp;
-    controls.turns.value = (27.5 + 27.5 * Math.sin((timestamp - animationStart) / 2600 - Math.PI / 2)).toFixed(1);
+    controls.turns.value = (22.5 + 22.5 * Math.sin((timestamp - animationStart) / 2600 - Math.PI / 2)).toFixed(1);
     render();
     animationFrame = requestAnimationFrame(animate);
   }

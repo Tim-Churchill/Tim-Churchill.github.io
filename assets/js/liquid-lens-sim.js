@@ -47,6 +47,7 @@
     document.getElementById("lensSagReadout").textContent = formatLength(m.sag);
     document.getElementById("lensRadiusReadout").textContent = formatLength(m.curvatureRadius);
     document.getElementById("lensFocusReadout").textContent = formatLength(m.focalLength);
+    canvas.setAttribute("aria-label", "Magnetically shaped liquid lens cross-section with " + formatLength(m.sag) + " center rise and an estimated focal length of " + formatLength(m.focalLength) + ".");
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "#0a201a";
