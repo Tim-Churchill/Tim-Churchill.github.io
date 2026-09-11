@@ -157,7 +157,23 @@ a:hover { color: var(--signal) !important; }
 video { overflow: hidden; border-radius: 14px; }
 
 .image img { object-fit: cover; }
-.project-card .image.fit img { aspect-ratio: 4 / 3; }
+.project-card { display: flex; flex-direction: column; }
+.project-card .image.fit,
+.project-card .project-preview {
+  aspect-ratio: 4 / 3;
+  display: block;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  width: 100%;
+}
+.project-card .image.fit img,
+.project-card .project-preview canvas {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+.project-card .actions { margin-top: auto; }
 .image.main img { height: auto; max-height: none; object-fit: contain; }
 
 a.image img { transition: transform .5s cubic-bezier(.2,.8,.2,1), filter .3s ease; }
@@ -249,8 +265,8 @@ button.primary { background: var(--signal); box-shadow: none; color: #fff !impor
   padding: .35rem .65rem;
 }
 
-.article-preview { margin: 0 0 2rem; padding: 0; }
-.article-preview canvas { aspect-ratio: 4 / 3; border-radius: 14px; }
+.article-preview { background: #0a201a; border: 0; border-radius: 14px; padding: 0; }
+.article-preview canvas { border-radius: 14px; }
 
 .article-shell { max-width: 1180px; margin: 0 auto; }
 .article-lede { font-size: clamp(1.2rem, 2.4vw, 1.65rem); line-height: 1.55; color: var(--pine); }
@@ -365,6 +381,7 @@ button.primary { background: var(--signal); box-shadow: none; color: #fff !impor
 .tsa-3d .physics-readouts { grid-template-columns: repeat(3, 1fr); }
 .mesh-3d .mesh-controls,
 .mesh-3d .mesh-readouts { grid-template-columns: repeat(4, 1fr); }
+.mesh-3d .focused-controls { grid-template-columns: minmax(0, 1fr); max-width: 34rem; }
 .tsa-state {
   border: 1px solid rgba(184,237,203,.22);
   border-radius: 10px;

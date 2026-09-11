@@ -31,7 +31,7 @@
     if (axialRisePerRadian >= helixRadius) return { distance: 2 * helixRadius, delta: 0 };
     let lo = 1e-9;
     let hi = Math.PI;
-    for (let i = 0; i < 70; i++) {
+    for (let i = 0; i < 48; i++) {
       const mid = (lo + hi) / 2;
       const derivative = axialRisePerRadian ** 2 * mid - helixRadius ** 2 * Math.sin(mid);
       if (derivative > 0) hi = mid; else lo = mid;
@@ -52,7 +52,7 @@
     let hi = tubeRadius * 2;
     while (closestOpposingHelixDistance(hi, rise).distance < diameter && hi < tubeRadius * 4096) hi *= 2;
     if (hi >= tubeRadius * 4096) return { radius: hi, valid: false, contactDelta: Math.PI };
-    for (let i = 0; i < 70; i++) {
+    for (let i = 0; i < 48; i++) {
       const mid = (lo + hi) / 2;
       if (closestOpposingHelixDistance(mid, rise).distance < diameter) lo = mid; else hi = mid;
     }
@@ -103,7 +103,7 @@
         }
         let invalidStrain = 0;
         let validStrain = maxStrain;
-        for (let i = 0; i < 60; i++) {
+        for (let i = 0; i < 48; i++) {
           const mid = (invalidStrain + validStrain) / 2;
           if (atStrain(mid).contactValid) validStrain = mid; else invalidStrain = mid;
         }
@@ -122,7 +122,7 @@
       }
 
       let strainHi = maxStrain;
-      for (let i = 0; i < 64; i++) {
+      for (let i = 0; i < 48; i++) {
         const mid = (strainLo + strainHi) / 2;
         const midState = atStrain(mid);
         if (!midState.contactValid || midState.compatibility < 0) strainLo = mid;
@@ -150,7 +150,7 @@
     let lowerState = hiState;
     let invalidBelow = null;
     let forceBracketFound = false;
-    const branchSamples = 180;
+    const branchSamples = 96;
     for (let i = 1; i <= branchSamples; i++) {
       const x = hi - (hi - xFloor) * i / branchSamples;
       const sample = stateAt(x);
@@ -158,7 +158,7 @@
         invalidBelow = sample;
         let invalidX = x;
         let validX = upperState.x;
-        for (let j = 0; j < 72; j++) {
+        for (let j = 0; j < 56; j++) {
           const mid = (invalidX + validX) / 2;
           if (stateAt(mid).stateValid) validX = mid; else invalidX = mid;
         }
@@ -179,7 +179,7 @@
     if (equilibriumValid) {
       let lo = lowerState.x;
       hi = upperState.x;
-      for (let i = 0; i < 90; i++) {
+      for (let i = 0; i < 64; i++) {
         const mid = (lo + hi) / 2;
         const midState = stateAt(mid);
         if (!midState.stateValid || midState.residual <= 0) lo = mid; else hi = mid;
