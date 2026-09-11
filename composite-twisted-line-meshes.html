@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <title>Composite Twisted-Line Actuators in Active Meshes — Timothy Churchill</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="An interactive, mechanics-first exploration of composite twisted-line actuators and shape-changing actuator meshes." />
+    <link rel="stylesheet" href="assets/css/main.css" /><link rel="stylesheet" href="assets/css/portfolio.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+  </head>
+  <body class="is-preload">
+    <div id="wrapper">
+      <header id="header"><a href="blog.html" class="logo">Back to Field Notes</a></header>
+      <nav id="nav" aria-label="Primary navigation">
+        <ul class="links"><li><a href="index.html">Home</a></li><li><a href="knowledge_map.html">Knowledge Map</a></li><li><a href="lens_project.html">Liquid Lens</a></li><li><a href="robotic_hand_project.html">Robotic Hand</a></li><li><a href="drone_control.html">Drone Control</a></li><li class="active"><a href="blog.html">Field Notes</a></li></ul>
+        <ul class="icons"><li><a href="https://www.linkedin.com/in/timothy-churchill-5bb23b241" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li><li><a href="https://github.com/Tim-Churchill" class="icon brands fa-github"><span class="label">GitHub</span></a></li></ul>
+      </nav>
+
+      <main id="main">
+        <article class="post article-shell">
+          <header class="major">
+            <span class="date">September 2026 · Mechanics / Soft Robotics</span>
+            <h1>Composite twisted-line actuators in active meshes</h1>
+            <p>A compact actuator becomes much more interesting when it stops being a single tendon and starts becoming one edge in a programmable material.</p>
+          </header>
+
+          <div class="article-body">
+            <p class="article-lede">A twisted-line actuator converts motor rotation into axial shortening. It is light, mechanically simple, and surprisingly strong. Put many of these contractile edges into a mesh and the mesh can redistribute load, curve, grip, or change its projected area. The useful question is not just “how far does one line pull?” but “what shape does a network choose when every active edge changes its preferred length?”</p>
+
+            <div class="callout"><strong>Scope.</strong> This is a design study and interactive reduced-order model, not a claim of a completed physical prototype. “Composite” here means a line or bundle engineered from more than one constituent—for example, a high-modulus braided load path with a frictional or rate-sensitive coating—and a mesh that combines active edges with passive elastic members.</div>
+
+            <h2>1. The geometry of one actuator</h2>
+            <p>Start with the cleanest idealization: two or more inextensible lines twist into a helix of constant effective radius <em>r</em>. Let <em>s</em> be the line length between terminations, <em>θ</em> the motor rotation in radians, and <em>x</em> the axial end-to-end distance. Unwrapping the helix gives a right triangle:</p>
+            <div class="equation" aria-label="Axial length equals square root of line length squared minus effective radius times angle squared">s² = x² + (rθ)² &nbsp;→&nbsp; x(θ) = √[s² − (rθ)²]</div>
+            <p>The predicted contraction is therefore</p>
+            <div class="equation">δ(θ) = s − x(θ), &nbsp;&nbsp; ε(θ) = δ/s, &nbsp;&nbsp; tan β = rθ/x</div>
+            <p>Here <em>β</em> is the helix angle measured from the actuator axis. The equation is dimensionally consistent: <em>rθ</em> is a length because radians are dimensionless. It also exposes the model’s domain, <em>|rθ| &lt; s</em>. The apparent singularity at <em>rθ = s</em> is a warning that the ideal helix model has been pushed far beyond the ordinary twist regime—not a promise of 100% contraction.</p>
+
+            <section class="simulation" aria-labelledby="single-sim-title">
+              <span class="kicker">Simulation 01 / Ideal helix</span>
+              <h3 id="single-sim-title">Twist one line bundle</h3>
+              <p>Adjust the geometry. The drawing and values use the equations above; the control is capped before the singular limit.</p>
+              <canvas id="actuatorCanvas" width="900" height="440" role="img" aria-label="Animated geometric model of two lines twisting into a helix"></canvas>
+              <div class="sim-controls">
+                <div class="sim-control"><label class="control-label" for="turns">Motor turns <output id="turnsOut">8.0</output></label><input id="turns" type="range" min="0" max="18" value="8" step="0.1" /></div>
+                <div class="sim-control"><label class="control-label" for="lineLength">Line length <output id="lineLengthOut">240 mm</output></label><input id="lineLength" type="range" min="160" max="320" value="240" step="5" /></div>
+                <div class="sim-control"><label class="control-label" for="radius">Effective radius <output id="radiusOut">1.2 mm</output></label><input id="radius" type="range" min="0.5" max="2.5" value="1.2" step="0.1" /></div>
+              </div>
+              <div class="sim-readouts"><div><strong id="lengthReadout">—</strong><span>axial length x</span></div><div><strong id="contractionReadout">—</strong><span>contraction δ</span></div><div><strong id="angleReadout">—</strong><span>helix angle β</span></div></div>
+              <p class="model-note">Model boundary: constant radius, inextensible strands, no overtwist, no strand compression, no termination length, and no load-dependent radius.</p>
+            </section>
+
+            <h2>2. Where the “composite” earns its place</h2>
+            <p>Real bundles are not perfect helices. Their effective radius changes as fibers seat, flatten, and migrate under tension. Friction creates hysteresis; the end fittings consume active length; and high twist can enter an overtwist regime with different geometry. Recent experimental work reports that making effective radius tension-dependent greatly improves contraction prediction, which is exactly why this page labels the first simulation as a baseline rather than a calibrated actuator model.</p>
+            <p>A composite construction lets each constituent do a different job. A braided UHMWPE or aramid core can carry tensile load. A compliant jacket can increase contact and protect fibers. A shear-stiffening impregnation can make the bundle’s axial response rate-dependent: a 2024 study measured substantially higher stiffness at high twist speed than at low speed for coated braided lines. Those ingredients do not change the basic kinematic idea, but they do change the effective radius, losses, stiffness, lifetime, and control model.</p>
+
+            <h2>3. From a line to a material</h2>
+            <p>Now replace a passive mesh edge with an actuator. Edge <em>e</em> connects nodes <em>i</em> and <em>j</em>, has stiffness <em>k<sub>e</sub></em>, and is assigned an active rest length <em>ℓ<sub>e</sub>(θ<sub>e</sub>)</em>. For a mesh configuration <strong>q</strong>, a compact quasistatic model minimizes spring energy:</p>
+            <div class="equation">U(q) = ½ Σ<sub>e</sub> k<sub>e</sub> ( ‖q<sub>i</sub> − q<sub>j</sub>‖ − ℓ<sub>e</sub> )²</div>
+            <p>For an active edge, the ideal twisted-line geometry supplies its command-dependent rest length:</p>
+            <div class="equation">ℓ<sub>e</sub>(θ<sub>e</sub>) = √[s<sub>e</sub>² − (r<sub>e</sub>θ<sub>e</sub>)²]</div>
+            <p>The mesh below numerically relaxes that energy with its corner nodes anchored. It includes horizontal, vertical, and diagonal springs so the grid resists shear. Orange members receive a shorter rest length; pale members remain passive. The simulation is intentionally two-dimensional, so it demonstrates in-plane shape programming rather than claiming a full shell or finite-element analysis.</p>
+
+            <section class="simulation" aria-labelledby="mesh-sim-title">
+              <span class="kicker">Simulation 02 / Active network</span>
+              <h3 id="mesh-sim-title">Program a contractile mesh</h3>
+              <p>Choose an activation field and contraction. The lattice settles toward the minimum-energy configuration.</p>
+              <canvas id="meshCanvas" width="900" height="560" role="img" aria-label="Interactive spring mesh with highlighted contracting actuator edges"></canvas>
+              <div class="sim-controls">
+                <div class="sim-control"><label class="control-label" for="meshPattern">Activation field</label><select id="meshPattern"><option value="center">Center gather</option><option value="left">Left grip</option><option value="diagonal">Diagonal bias</option><option value="wave">Traveling band</option></select></div>
+                <div class="sim-control"><label class="control-label" for="meshContraction">Active contraction <output id="meshContractionOut">14%</output></label><input id="meshContraction" type="range" min="0" max="24" value="14" step="1" /></div>
+                <div class="sim-control"><label class="control-label" for="meshStiffness">Passive stiffness <output id="meshStiffnessOut">1.0×</output></label><input id="meshStiffness" type="range" min="0.5" max="2" value="1" step="0.1" /></div>
+              </div>
+              <div class="sim-readouts"><div><strong id="activeEdgesReadout">—</strong><span>active edges</span></div><div><strong id="meshEnergyReadout">—</strong><span>normalized spring energy</span></div><div><strong id="meshAreaReadout">—</strong><span>projected area change</span></div></div>
+              <p class="model-note">Numerical model: damped spring relaxation in 2D. It is useful for intuition and control prototyping, not stress certification or material selection.</p>
+            </section>
+
+            <h2>4. Design rules that fall out of the model</h2>
+            <h3>Activation should be distributed</h3>
+            <p>A single highly contracted edge creates a stress concentration. A band of modestly contracted edges produces a smoother deformation and gives neighboring passive members room to share load.</p>
+            <h3>The mesh needs a shear story</h3>
+            <p>A square grid made only of horizontal and vertical strings can collapse as a mechanism. Diagonal members, bending stiffness, or a continuous matrix are needed if the intended shape must resist shear rather than simply fold.</p>
+            <h3>Pretension is part of the mechanism</h3>
+            <p>Twisted lines pull; they do not push. Pretension keeps edges engaged and prevents slack, while antagonistic active edges or passive elastics provide return motion. The anchor forces must be included when the mesh is attached to a frame or body.</p>
+            <h3>Calibrate each actuator family</h3>
+            <p>The ideal equation supplies a sensible first estimate. A build-ready controller should identify effective radius, free length, hysteresis, force dependence, temperature, and cycle-to-cycle drift from experiments. Those parameters should be fitted on the same material, bundle count, termination, and load range used in the mesh.</p>
+
+            <h2>5. A practical prototype path</h2>
+            <ol>
+              <li>Characterize one actuator on a bench: motor angle, axial displacement, tension, and temperature.</li>
+              <li>Fit a monotonic contraction map and measure unwind hysteresis instead of assuming the forward curve is reversible.</li>
+              <li>Build a four-cell mesh with diagonal stabilization and instrument its anchors.</li>
+              <li>Compare measured node positions with the spring model; update effective edge stiffnesses and actuator rest-length curves.</li>
+              <li>Only then scale the network or add out-of-plane constraints for a shell, gripper, sleeve, or morphing surface.</li>
+            </ol>
+
+            <h2>References and model provenance</h2>
+            <ul class="references">
+              <li><a href="https://arxiv.org/abs/1610.01117">Tavakoli, Batista &amp; Neto, “A compact two-phase twisted string actuation system: Modeling and validation” (2016)</a> — bundle radius and overtwist modeling.</li>
+              <li><a href="https://www.nature.com/articles/s41598-024-55405-x">Zhang et al., “Shear stiffening gel-enabled twisted string for bio-inspired robot actuators” (2024)</a> — a composite, rate-dependent twisted-string construction.</li>
+              <li><a href="https://ieeexplore.ieee.org/document/11127389/">Blohm et al., “Tension Dependent Twisted String Actuator Modelling and Efficacy Benchmarking” (2025)</a> — experimental evidence for tension-dependent effective radius.</li>
+              <li><a href="https://www.nature.com/articles/s41598-025-96428-2">Kim et al., “Fabric integrated wearable glove with a twisted string actuator” (2025)</a> — fabric integration and mesh-assisted recovery in a wearable system.</li>
+            </ul>
+          </div>
+        </article>
+      </main>
+
+      <footer id="footer"><section class="split contact"><section><h3>Continue the conversation</h3><p><a href="mailto:timothy.churchillr@gmail.com">timothy.churchillr@gmail.com</a></p></section><section><h3>More work</h3><p><a href="robotic_hand_project.html">Adaptive robotic hand →</a></p></section><section><h3>Code</h3><p><a href="https://github.com/Tim-Churchill">GitHub →</a></p></section></section></footer>
+      <div id="copyright"><ul><li>&copy; 2026 Timothy Churchill</li><li>Original framework: <a href="https://html5up.net">HTML5 UP</a></li></ul></div>
+    </div>
+    <script src="assets/js/jquery.min.js"></script><script src="assets/js/jquery.scrollex.min.js"></script><script src="assets/js/jquery.scrolly.min.js"></script><script src="assets/js/browser.min.js"></script><script src="assets/js/breakpoints.min.js"></script><script src="assets/js/util.js"></script><script src="assets/js/main.js"></script><script src="assets/js/actuator-sim.js"></script>
+  </body>
+</html>

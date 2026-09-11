@@ -1,0 +1,7 @@
+{
+  "name": "timothy-churchill-portfolio",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  }
+}
